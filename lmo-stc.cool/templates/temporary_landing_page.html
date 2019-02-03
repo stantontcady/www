@@ -1,0 +1,42 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}LMO + STC = COOL{% endblock %}
+
+{% block styles %}
+  <link href="https://fonts.googleapis.com/css?family=Montserrat|Rozha+One" rel="stylesheet">
+
+  <style>
+
+    body {
+      text-align: center;
+      margin: 50px;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Rozha One', serif;
+    }
+
+    h1 {
+      font-size: 8em;
+    }
+
+    h2 {
+      margin-bottom: 100px;
+      font-size: 4em;
+    }
+
+    p {
+      'Montserrat', sans-serif;
+    }
+
+  </style>
+
+{% endblock %}
+
+{% block content %}
+  <h1>Lenna & Stanton Are Getting Married</h1>
+
+  <h2>Brooklin, Maine | September 28, 2019</h2>
+
+  <p>This is just a placeholder design--something much nicer coming soon. In the meantime:</p>
+  <h3><a href="{{ url_for('why_maine') }}">Why Maine?</a> | <a href="{{ url_for('accommodations') }}">Accommodations</a> | <a href="{{ url_for('getting_there') }}">Getting There</a> | <a href="{{ url_for('details_etc') }}">Weekend Details & Stuff to Do!</a></h3>
+{% endblock %}

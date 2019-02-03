@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LMO + STC = COOL</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+  /* Note: Try to remove the following lines to see the effect of CSS positioning */
+  .affix {
+    top: 0;
+    width: 100%;
+    z-index: 9999 !important;
+  }
+
+  .affix + .container-fluid {
+    padding-top: 70px;
+  }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid">
+  <img height=500px; src="{{ url_for('static', filename='img/header.png') }}" align="middle" />
+</div>
+
+<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="500">
+  <ul class="nav navbar-nav">
+    <li><a href="#">Why Maine?</a></li>
+    <li><a href="#">Accommodations</a></li>
+    <li><a href="#">Getting There</a></li>
+    <li><a href="#">Weekend Details & Stuff to Do!</a></li>
+  </ul>
+</nav>
+
+<div class="container-fluid" style="height:1000px">
+  <h1>Some text to enable scrolling</h1>
+  <h1>Some text to enable scrolling</h1>
+  <h1>Some text to enable scrolling</h1>
+  <h1>Some text to enable scrolling</h1>
+  <h1>Some text to enable scrolling</h1>
+  <h1>Some text to enable scrolling</h1>
+  <h1>Some text to enable scrolling</h1>
+  <h1>Some text to enable scrolling</h1>
+  <h1>Some text to enable scrolling</h1>
+  <h1>Some text to enable scrolling</h1>
+  <h1>Some text to enable scrolling</h1>
+  <h1>Some text to enable scrolling</h1>
+  <h1>Some text to enable scrolling</h1>
+  <h1>Some text to enable scrolling</h1>
+  <h1>Some text to enable scrolling</h1>
+  <h1>Some text to enable scrolling</h1>
+</div>
+
+</body>
+</html>
+
