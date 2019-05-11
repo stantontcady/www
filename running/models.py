@@ -138,7 +138,7 @@ class LocationWhileRunning(Location):
 
 
     @property
-    def power_w(self):
+    def power(self):
         return self.power_w*ureg.watt
 
 

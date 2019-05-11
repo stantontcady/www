@@ -10,7 +10,7 @@ app.secret_key = '184963b1-c23a-4b30-845d-073bfe3210f0'
 
 @app.route('/')
 def temporary_landing_page():
-    return render_template('temporary_landing_page.html')
+    return render_template('main.html')
 
 
 @app.route('/why_maine')
@@ -35,4 +35,4 @@ def details_etc():
 
 @app.route('/fbc05915-e73b-4f3c-8a05-92ad888ee76e')
 def alt():
-    return render_template('alt.html')
+    return render_template('band.html')
