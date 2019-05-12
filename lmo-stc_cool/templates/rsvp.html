@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>LMO+STC=COOL: RSVP</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link href="https://use.typekit.net/tih7ugf.css?v1" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+  body {
+    color: #000;
+  }
+  h1 {
+    font-family: tilda-petite, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2.5em;
+  }
+  p {
+    font-family: mrs-eaves-roman-petite-caps, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.75em;
+  }
+  img {
+    width: 175px;
+    margin: 25px 0;
+  }
+  #invite, #rsvp_buttons {
+    margin: 20px auto;
+    width: 550px;
+  }
+  #invite {
+    border: 1px solid #000;
+    padding: 10px 50px;
+  }
+  #rsvp_buttons {
+    padding: 0;
+  }
+  #left_button, #right_button {
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+    padding: 10px;
+    font-family: tilda-petite, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.75em;
+    width: 50%;
+    margin: 0;
+  }
+  #left_button {
+    float: left;
+    border-left: 1px solid #000;
+  }
+  #right_button {
+    float: right;
+  }
+  #left_button a, #right_button a {
+    color: #000;
+  }
+  #left_button a:hover, #right_button a:hover {
+    color: #000;
+  }
+
+  @media only screen and (max-width: 570px) {
+    img {
+      width: 45%;
+    }
+    h1 {
+      font-size: 1.2em;
+    }
+    p {
+      font-size: 1em;
+    }
+    #invite, #rsvp_buttons {
+      max-width: 90%;
+      margin: 20px;
+    }
+    #left_button, #right_button {
+      font-size: 1.5em;
+    }
+  }
+  </style>
+</head>
+<body>
+
+  <div id="invite" class="container text-center">
+    <img class="img-responsive center-block" src="{{ url_for('static', filename='img/lookout_drawing.png') }}" />
+    <p>Together with their families</p>
+    <h1 style="margin-top: 15px;">Lenna Moy Ostrodka</h1>
+    <p>and</p>
+    <h1 style="margin-bottom: 10px; margin-top: -3px">Stanton Terry Cady</h1>
+    <p>
+      Invite <b><span id="names_of_people_in_party">{{ rsvp.names_of_people_in_party }}</span></b> Downeast<br />
+      to celebrate their wedding<br />
+      Saturday, the twenty-eighth of September<br />
+      two thousand nineteen<br />
+      at half past four in the afternoon<br />
+      The Lookout Inn<br />
+      Brooklin, Maine<br />
+    </p>
+  </div>
+  <div id="rsvp_buttons" class="container text-center">
+    <div id="left_button"><a id="accept_button" href="#accept_rsvp">Accept With Pleasure</a></div>
+    <div id="right_button"><a id="decline_button" href="#decline_rsvp">Regretfully Decline</a></div>
+  </div>
+  <div id="accept_rsvp" class="container text-center"{% if not rsvp.accept %} style="display: none;"{% endif %}>
+    <h1>Details</h1>
+    {% if rsvp.which_schedule == 'family' %}
+    <p>We couldn’t be more excited to celebrate with you in Maine! Here are a few things we’re planning for the weekend. You’re welcome to join in as many things as you like. Breakfast is included at the Lookout and will be served in the dining room. Let us know about any questions or concerns, and see you soon.</p>
+    {% else %}
+    <p>We couldn’t be more excited to celebrate with you in Maine! Here are a few things we’re planning for the weekend. You’re welcome to join in as many things as you like. Let us know about any questions or concerns, and see you soon!</p>
+    {% endif %}
+
+    <div class="row">
+      {% for person in rsvp.people %}
+        <div class="col-xs-6">
+          <h1>{{ person.name }}</h1>
+          <div class="form-check">
+            <input class="form-check-input auto_save_dietary_restrictions" type="checkbox" value="" id="{{ person.name }}-dietary_vegetarian"{% if person.dietary_vegetarian %} checked {% endif %}>
+            <label class="form-check-label" for="{{ person.name }}-dietary_vegetarian">
+              Vegetarian
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input auto_save_dietary_restrictions" type="checkbox" value="" id="{{ person.name }}-dietary_gluten_free"{% if person.dietary_gluten_free %} checked {% endif %}>
+            <label class="form-check-label" for="{{ person.name }}-dietary_gluten_free">
+              Gluten-Free
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input dietary_other_check" type="checkbox" value="" id="{{ person.name }}-dietary_other_check"{% if person.dietary_other %} checked {% endif %}>
+            <label class="form-check-label" for="{{ person.name }}-dietary_other_check">
+              Other
+            </label>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control dietary_other_value" id="{{ person.name }}-dietary_other_value" {% if person.dietary_other %} value="{{person.dietary_other}}"{% else %} style="display: none;" {% endif %}>
+          </div>
+        </div>
+      {% endfor %}
+      {% if rsvp.guest %}
+        <div class="col-xs-6">
+          <h1>Guest</h1>
+          <div class="form-group">
+            <label for="guest_name">Name</label>
+            <input type="text" class="form-control" id="guest_name" {% if rsvp.guest.name %} value="{{rsvp.guest.name}}"{% endif %}>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input auto_save_dietary_restrictions" type="checkbox" value="" id="guest-dietary_vegetarian"{% if rsvp.guest.dietary_vegetarian %} checked {% endif %}>
+            <label class="form-check-label" for="guest-dietary_vegetarian">
+              Vegetarian
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input auto_save_dietary_restrictions" type="checkbox" value="" id="guest-dietary_gluten_free"{% if rsvp.guest.dietary_gluten_free %} checked {% endif %}>
+            <label class="form-check-label" for="guest-dietary_gluten_free">
+              Gluten-Free
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input dietary_other_check" type="checkbox" value="" id="guest-dietary_other_check"{% if rsvp.guest.dietary_other %} checked {% endif %}>
+            <label class="form-check-label" for="guest-dietary_other_check">
+              Other
+            </label>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control dietary_other_value" id="guest-dietary_other_value" {% if rsvp.guest.dietary_other %} value="{{rsvp.guest.dietary_other}}"{% else %} style="display: none;" {% endif %}>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="form-check">
+      <input class="form-check-input auto_save_activity_rsvp" type="checkbox" value="" id="friday_hike"{% if rsvp.friday_hike %} checked {% endif %}>
+      <label class="form-check-label" for="friday_hike">
+        Do you plan to meet us in Acadia on Friday, September 27th at 9:30 am
+      </label>
+    </div>
+    {% if rsvp.which_schedule == 'family' %}
+      <div class="form-check">
+        <input class="form-check-input auto_save_activity_rsvp" type="checkbox" value="" id="friday_dinner" {% if rsvp.friday_dinner %} checked {% endif %}>
+        <label class="form-check-label" for="friday_dinner">
+          Will you join us for dinner at Barncastle Restaurant on Friday, September 27th at 5:00 pm?
+        </label>
+      </div>
+    {% endif %}
+    <div class="form-check">
+      <input class="form-check-input auto_save_activity_rsvp" type="checkbox" value="" id="friday_bonfire" {% if rsvp.friday_bonfire %} checked {% endif %}>
+      <label class="form-check-label" for="friday_bonfire">
+        Will you join us for a bonfire on Friday, September 27th after 7:00 pm?
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input auto_save_activity_rsvp" type="checkbox" value="" id="saturday_activity" {% if rsvp.saturday_activity %} checked {% endif %}>
+      <label class="form-check-label" for="saturday_activity">
+        Do you plan to meet us at Osgood Trailhead at Blue Hill Mountain on Saturday, September 28th at 11:00 am?
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input auto_save_activity_rsvp" type="checkbox" value="" id="sunday_brunch" {% if rsvp.sunday_brunch %} checked {% endif %}>
+      <label class="form-check-label" for="sunday_brunch">
+        Will you join us for breakfast at the Lookout on Sunday, September 29th?
+      </label>
+    </div>
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input type="email" class="form-control" id="email" placeholder="name@example.com"{% if rsvp.email_address %} value="{{rsvp.email_address}}"{% endif %}>
+    </div>
+    <div class="form-group">
+      <label for="suggested_songs">Song Suggestions</label>
+      <input type="text" class="form-control" id="suggested_songs" {% if rsvp.suggested_songs %} value="{{rsvp.suggested_songs}}"{% endif %}>
+    </div>
+  </div>
+
+  <script>
+  $(document).ready(function() {
+
+    var emailTimeoutId;
+    $('#email').on('input', function() {
+
+      clearTimeout(emailTimeoutId);
+
+      emailTimeoutId = setTimeout(function() {
+
+        $.ajax({
+          url: '/update_email_address/{{ rsvp._id }}',
+          type: 'PUT',
+          data: "email_address=" + $('#email').val()
+        });
+      }, 500);
+    });
+
+    var songsTimeoutId;
+    $('#suggested_songs').on('input', function() {
+
+      clearTimeout(songsTimeoutId);
+
+      songsTimeoutId = setTimeout(function() {
+
+        $.ajax({
+          url: '/update_suggested_songs/{{ rsvp._id }}',
+          type: 'PUT',
+          data: "suggested_songs=" + $('#suggested_songs').val()
+        });
+      }, 500);
+    });
+
+    var guestNameTimeoutId;
+    $('#guest_name').on('input', function() {
+
+      clearTimeout(guestNameTimeoutId);
+
+      guestNameTimeoutId = setTimeout(function() {
+
+        $.ajax({
+          url: '/update_guest_name/{{ rsvp._id }}',
+          type: 'PUT',
+          data: "guest_name=" + $('#guest_name').val(),
+          success: function(data) {
+            $('#names_of_people_in_party').html(data);
+          }
+        });
+      }, 500);
+    });
+
+    var dietaryOtherTimeoutId;
+    $('.dietary_other_value').on('input', function() {
+
+      clearTimeout(dietaryOtherTimeoutId);
+
+      var name, dietary_other;
+      [name, dietary_other] = this.id.split('-');
+
+      var value = $(this).val()
+
+      dietaryOtherTimeoutId = setTimeout(function() {
+
+        $.ajax({
+          url: '/update_dietary_other/{{ rsvp._id }}',
+          type: 'PUT',
+          data: "name=" + name + "&value=" + value
+        });
+      }, 500);
+    });
+
+
+    $('.dietary_other_check').change(function() {
+
+      var value_field_id = '#' + this.id.replace('dietary_other_check', 'dietary_other_value');
+
+      if(this.checked) {
+        $(value_field_id).show();
+
+      } else {
+
+        $(value_field_id).hide();
+        $(value_field_id).val('');
+
+        var name, dietary_other;
+        [name, dietary_other] = this.id.split('-');
+
+        $.ajax({
+          url: '/update_dietary_other/{{ rsvp._id }}',
+          type: 'PUT',
+          data: "name=" + name + "&value="
+        });
+
+      }
+    });
+
+    $('.auto_save_activity_rsvp').change(function() {
+      var value = 0;
+      if(this.checked) {
+        value = 1;
+      }
+      $.ajax({
+        url: '/update_bool_field/{{ rsvp._id }}',
+        type: 'PUT',
+        data: "key=" + this.id + "&value=" + value
+      });
+    });
+
+    $('.auto_save_dietary_restrictions').change(function() {
+      var value = 0;
+      if(this.checked) {
+        value = 1;
+      }
+      var name, dietary_name;
+      [name, dietary_name] = this.id.split('-');
+      $.ajax({
+        url: '/update_dietary_restrictions/{{ rsvp._id }}',
+        type: 'PUT',
+        data: "name=" + name + "&dietary_name=" + dietary_name + "&value=" + value
+      });
+    });
+
+
+    window.onhashchange = function(event) {
+
+      event.preventDefault();
+
+      if (window.location.hash == "#accept_rsvp") {
+
+        $.ajax({
+          url: '/update_bool_field/{{ rsvp._id }}',
+          type: 'PUT',
+          data: "key=accept&value=1"
+        });
+
+        $('#accept_rsvp').css('min-height', $('#invite').outerHeight() + 'px');
+        $('#accept_rsvp').show();
+        $('html, body').animate({
+          scrollTop: $('#rsvp_buttons').offset().top
+        }, 750);
+
+      } else if (window.location.hash == "") {
+
+        $('html, body').animate({
+          scrollTop: $('#invite').offset().top
+        }, 750);
+        $('#accept_rsvp').hide();
+
+      } else if (window.location.hash == "#decline_rsvp") {
+
+        $.ajax({
+          url: '/update_bool_field/{{ rsvp._id }}',
+          type: 'PUT',
+          data: "key=accept&value=0"
+        });
+
+      } else {
+        console.log(window.location.hash); 
+      }
+    }
+
+    // Add smooth scrolling to all links in navbar + footer link
+
+  })
+  </script>
+
+</body>
+</html>
