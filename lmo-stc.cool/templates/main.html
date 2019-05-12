@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>LMO+STC=COOL</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+  body {
+    font: 400 15px/1.8 Lato, sans-serif;
+    color: #4f4f4e;
+  }
+  h3 {
+    margin: 10px 0 30px 0;
+    letter-spacing: 10px;
+    font-size: 32px;
+    color: #111;
+  }
+  h4 {
+    margin: 10px 0 30px 0;
+    letter-spacing: 10px;
+    font-size: 26px;
+    color: #111;
+  }
+  .container {
+    padding: 80px 6%;
+  }
+  #header {
+    padding-top: 80px;
+    padding-bottom: 0px;
+  }
+  .bg-1 {
+    background: #6a819c;
+    color: #d7d7d7;
+  }
+  .bg-1 h3 {color: #fff;}
+  .bg-1 p {font-style: italic;}
+  .list-group-item:first-child {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+  }
+  .bg-1 a {color: #fff;}
+  .list-group-item:last-child {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .thumbnail {
+    padding: 0 0 15px 0;
+    border: none;
+    border-radius: 0;
+  }
+  .thumbnail p {
+    margin-top: 15px;
+    color: #555;
+  }
+  .btn {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #f1f1f1;
+    border-radius: 0;
+    transition: .2s;
+  }
+  .btn:hover, .btn:focus {
+    border: 1px solid #333;
+    background-color: #fff;
+    color: #000;
+  }
+  .nav-tabs li a {
+    color: #777;
+  }
+  .navbar {
+    font-family: Montserrat, sans-serif;
+    margin-bottom: 0;
+    background-color: #284669;
+    border: 0;
+    font-size: 11px !important;
+    letter-spacing: 4px;
+    opacity: 0.9;
+  }
+  .navbar li a, .navbar .navbar-brand { 
+    color: #fff !important;
+  }
+  .navbar-nav li a:hover {
+    color: #fbbe9d !important;
+  }
+  .navbar-nav li.active a {
+    color: #964329 !important;
+    background-color: #6a819c !important;
+  }
+  .navbar-default .navbar-toggle {
+    border-color: transparent;
+  }
+  .open .dropdown-toggle {
+    color: #fff;
+    background-color: #6a819c !important;
+  }
+  .dropdown-menu li a {
+    color: #000 !important;
+  }
+  .dropdown-menu li a:hover {
+    background-color: red !important;
+  }
+  footer {
+    background-color: #fff;
+    color: #f5f5f5;
+    padding: 32px;
+  }
+  footer a {
+    color: #f5f5f5;
+  }
+  footer a:hover {
+    color: #777;
+    text-decoration: none;
+  }  
+  .form-control {
+    border-radius: 0;
+  }
+  textarea {
+    resize: none;
+  }
+  </style>
+</head>
+<body id="home" data-spy="scroll" data-target=".navbar" data-offset="50">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#why_maine">WHY MAINE?</a></li>
+        <li><a href="#venue">VENUE</a></li>
+        <li><a href="#getting_there">GETTING THERE</a></li>
+        <li><a href="#details_etc">WEEKEND DETAILS</a></li>
+        <!-- <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Save the Date</a></li>
+          </ul>
+        </li> -->
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div id="header" class="container text-center">
+  <img width="100%" src="{{ url_for('static', filename='img/header4.png') }}" />
+</div>
+
+
+<div id="why_maine" class="container text-center">
+  <h3>WHY MAINE?</h3>
+      <p>
+        As a kiddo, Lenna visited Maine with her family and remembers being enchanted by the lighthouses, tidepools, tiny blueberries, and lobster rolls on the McDonald's menu. She was thrilled to go back to “Vacationland” in 2017 with Stanton for his first time there. Over a long holiday weekend, they took the scenic route up the coast, eventually landing in Brooklin, Maine. Here are some of the stops along the way:
+      </p>
+  <br>
+  <div class="row">
+    <img width="85%" src="{{ url_for('static', filename='img/boston_to_brooklin2.gif') }}" />
+  </div>
+  <div class="row">
+    <h4 class="text-center">Portsmouth, NH</h4>
+    <div class="col-sm-4 col-sm-push-8">
+      <img class="img-responsive" src="{{ url_for('static', filename='img/portsmouth_illustration.gif') }}" />
+    </div>
+    <div class="col-sm-8 col-sm-pull-4">
+      <p>A bridge enthusiast, Stanton appreciated the Memorial Bridge, which carried us from New Hampshire to Maine. The houses in this charming 1600s city are actually adorable.</p>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <!-- <a href="/w3images/lights.jpg" target="_blank"> -->
+              <img class = "img-responsive" src="{{ url_for('static', filename='img/portsmouth_image_1_2.jpg') }}" />
+            <!-- </a> -->
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <!-- <a href="/w3images/nature.jpg" target="_blank"> -->
+              <img class="img-responsive" src="{{ url_for('static', filename='img/portsmouth_image_2.jpg') }}" />
+            <!-- </a> -->
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <!-- <a href="/w3images/fjords.jpg" target="_blank"> -->
+              <img class="img-responsive" src="{{ url_for('static', filename='img/portsmouth_image_3.jpg') }}" />
+            <!-- </a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <h4 class="text-center">York, ME</h4>
+    <div class="col-sm-4">
+      <img class="img-responsive" src="{{ url_for('static', filename='img/york_illustration.gif') }}" />
+    </div>
+    <div class="col-sm-8">
+      <p>One of the lighthouses Lenna and the Os visited. Not a bad place to fly your drone and grab some ice cream.</p>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <!-- <a href="/w3images/lights.jpg" target="_blank"> -->
+              <img class="img-responsive" src="{{ url_for('static', filename='img/york_image_1.jpg') }}" />
+            <!-- </a> -->
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <!-- <a href="/w3images/nature.jpg" target="_blank"> -->
+              <img class="img-responsive" src="{{ url_for('static', filename='img/york_image_2.jpg') }}" />
+            <!-- </a> -->
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <!-- <a href="/w3images/fjords.jpg" target="_blank"> -->
+              <img class="img-responsive" src="{{ url_for('static', filename='img/york_image_3.jpg') }}" />
+            <!-- </a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <h4 class="text-center">Portland, ME</h4>
+    <div class="col-sm-4 col-sm-push-8">
+      <img class="img-responsive" src="{{ url_for('static', filename='img/portland_illustration.gif') }}" />
+    </div>
+    <div class="col-sm-8 col-sm-pull-4">
+      <p>Bon Appetit spends an inordinate amount of time raving about this place, but it's deserved. We loved the scrummy bakeries (including the potato donuts) and the coffee, snacked on before walks in the East End parks. A chill as heck town.</p>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <!-- <a href="/w3images/lights.jpg" target="_blank"> -->
+              <img class="img-responsive" src="{{ url_for('static', filename='img/portland_image_1.jpg') }}" />
+            <!-- </a> -->
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <!-- <a href="/w3images/nature.jpg" target="_blank"> -->
+              <img class="img-responsive" src="{{ url_for('static', filename='img/portland_image_2_2.jpg') }}" />
+            <!-- </a> -->
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <!-- <a href="/w3images/fjords.jpg" target="_blank"> -->
+              <img class="img-responsive" src="{{ url_for('static', filename='img/portland_image_3.jpg') }}" />
+            <!-- </a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <h4 class="text-center">Rockland, ME</h4>
+    <div class="col-sm-4">
+      <img class="img-responsive" src="{{ url_for('static', filename='img/rockland_illustration.gif') }}" />
+    </div>
+    <div class="col-sm-8">
+      <p>Another lighthouse, please! The afternoon we trekked out on the nearly mile-long (<a target="_blank" href="http://www.rocklandharborlights.org/faq.html">4,346 feet</a>) granite breakwater was completely enshrouded in fog, and we couldn't see the lighthouse until the very end. It was spooky and possibly haunted. We made it back to land but can't promise the same for everyone.</p>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <!-- <a href="/w3images/lights.jpg" target="_blank"> -->
+              <img class="img-responsive" src="{{ url_for('static', filename='img/rockland_image_1.jpg') }}" />
+            <!-- </a> -->
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <!-- <a href="/w3images/nature.jpg" target="_blank"> -->
+              <img class="img-responsive" src="{{ url_for('static', filename='img/rockland_image_2.jpg') }}" />
+            <!-- </a> -->
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <!-- <a href="/w3images/fjords.jpg" target="_blank"> -->
+              <img class="img-responsive" src="{{ url_for('static', filename='img/rockland_image_3.jpg') }}" />
+            <!-- </a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <h4 class="text-center">Camden, ME</h4>
+    <div class="col-sm-4 col-sm-push-8">
+      <img class="img-responsive" src="{{ url_for('static', filename='img/camden_illustration2.gif') }}" />
+    </div>
+    <div class="col-sm-8 col-sm-pull-4">
+      <p>Do you enjoy the smell of garlic wafting into the streets? The pan-Asian food at Long Grain alone makes this harbor town worth visiting. Bonus: the town shares its name with Lenna's nephew, and another restaurant in town has her niece Josephine's name.</p>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <!-- <a href="/w3images/lights.jpg" target="_blank"> -->
+              <img class="img-responsive" src="{{ url_for('static', filename='img/camden_image_1.jpg') }}" />
+            <!-- </a> -->
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <!-- <a href="/w3images/nature.jpg" target="_blank"> -->
+              <img class="img-responsive" src="{{ url_for('static', filename='img/camden_image_2_2.jpg') }}" />
+            <!-- </a> -->
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <!-- <a href="/w3images/fjords.jpg" target="_blank"> -->
+              <img class="img-responsive" src="{{ url_for('static', filename='img/camden_image_3.jpg') }}" />
+            <!-- </a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <h4 class="text-center">Brooklin, ME</h4>
+    <div class="col-sm-4">
+      <img class="img-responsive" src="{{ url_for('static', filename='img/brooklin_illustration.gif') }}" />
+    </div>
+    <div class="col-sm-8">
+      <p>We made it to the boat-building capital of the world. We chose this area because all the other airbnbs closer to Acadia had been scooped up already, but we ended up falling in love with it. The tiny rock islands, lil schooners, and nicest people made it one of our favorite spots. We can't wait to celebrate there with you.</p>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <!-- <a href="/w3images/lights.jpg" target="_blank"> -->
+              <img class="img-responsive" src="{{ url_for('static', filename='img/brooklin_image_2_2.jpg') }}" />
+            <!-- </a> -->
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <!-- <a href="/w3images/nature.jpg" target="_blank"> -->
+              <img class="img-responsive" src="{{ url_for('static', filename='img/brooklin_image_1.jpg') }}" />
+            <!-- </a> -->
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <!-- <a href="/w3images/fjords.jpg" target="_blank"> -->
+              <img class="img-responsive" src="{{ url_for('static', filename='img/brooklin_image_3_1.jpg') }}" />
+            <!-- </a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="venue" class="bg-1">
+  <div class="container">
+    <h3 class="text-center">VENUE & WHERE TO STAY</h3>
+    <p>We're having our wedding at the lovely <a target="_blank" href="http://www.thelookoutinn.com">Lookout Inn</a> in Brooklin, Maine. The house dates back to the 1700s and has incredible views of the water. Several cottages are sprinkled throughout the grounds. Beyond the meadow is the beach, and a few of the rocky islands can be explored when the tide is low. We'll have the whole place to ourselves for the whole weekend, which will hosted by Butch and Marsha. Since the Lookout has limited room, some people will stay in another hotel in town or <a target="_blank" href="https://www.airbnb.com/s/Brooklin--ME--United-States/homes?children=0&infants=0&query=Brooklin%2C%20ME%2C%20United%20States&place_id=ChIJYdbHeQKbrkwRQuftsyD7xP0&checkin=2019-09-27&checkout=2019-09-30&toddlers=0&adults=2&guests=2&refinement_paths%5B%5D=%2Fhomes&allow_override%5B%5D=&s_tag=H6-cptyf">Airbnbs</a> / <a target="_blank" href="https://www.vrbo.com/results?adultsCount=2&petIncluded=false&q=brooklin%2C%20me&from-date=2019-09-27&to-date=2019-09-30">VRBOs</a>. We will coordinate with you closer to the date.</p>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="thumbnail">
+          <!-- <a href="/w3images/lights.jpg" target="_blank"> -->
+            <img class="img-responsive" src="{{ url_for('static', filename='img/lookout_image_1.jpg') }}" />
+            <div class="caption text-center">
+              <p>The Lookout Inn</p>
+            </div>
+          <!-- </a> -->
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="thumbnail">
+          <!-- <a href="/w3images/nature.jpg" target="_blank"> -->
+            <img class="img-responsive" src="{{ url_for('static', filename='img/lookout_image_2.jpg') }}" />
+            <div class="caption text-center">
+              <p>The Peninsula from Above</p>
+            </div>
+          <!-- </a> -->
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="thumbnail">
+          <!-- <a href="/w3images/fjords.jpg" target="_blank"> -->
+            <img class="img-responsive" src="{{ url_for('static', filename='img/lookout_image_3.jpg') }}" />
+            <div class="caption text-center">
+              <p>The Dining Room at the Lookout</p>
+            </div>
+          <!-- </a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="getting_there" class="container">
+  <h3 class="text-center">GETTING TO BROOKLIN</h3>
+
+  <p>
+    The Lookout is about 4.5 hours from Boston and 3 hours from Portland. We hope the New England fall colors will entertain you along the way. We know it’s not the easiest place to get to, but we hope to make it worth your while!
+  </p>
+
+  <div class="thumbnail">
+    <!-- <a href="/w3images/lights.jpg" target="_blank"> -->
+      <img class="img-responsive" src="{{ url_for('static', filename='img/autumn_drive.gif') }}" />
+      <div class="caption text-center">
+        <p>Heading to Brooklin Late September 2018</p>
+      </div>
+    <!-- </a> -->
+  </div>
+
+  <p>
+    If you have the time and are able to, we suggest flying into Boston or Portland a day or two early and taking your time as you drive up Route 1 along the coast. Some of our favorite things to see and do include:
+  </p>
+
+  <ul>
+    <li>Boston, MA - <a target="_blank" href="https://flourbakery.com">Flour Bakery</a>, <a target="_blank" href="https://www.arboretum.harvard.edu">Arnold Arboretum</a>, <a target="_blank" href="https://hmnh.harvard.edu">Harvard Museum of Natural History</a></li>
+    <li>Portsmouth, NH - <a target="_blank" href="https://nahcotta.com">Nahcotta (art and gift store)</a>, <a target="_blank" href="http://www.strawberybanke.org">Strawbery Banke Museum, <a target="_blank" href="https://www.portsmouthnh.com/listing/memorial-bridge/">Memorial Bridge</a></li>
+    <li>York, ME - <a target="_blank" href="http://www.newenglandlighthouses.net/cape-neddick-nubble.html">Cape Neddick (Nubble) Lighthouse</a> and surrounding ice cream shops</li>
+    <li>Portland, ME - <a target="_blank" href="https://standardbakingco.com">Standard Baking Company</a>, <a target="_blank" href="https://theholydonut.com">The Holy Donut</a>, <a target="_blank" href="https://www.bardcoffee.com">Bard Coffee</a>, <a target="_blank" href="https://www.mainenarrowgauge.org">Maine Narrow Gauge Railroad</a>, <a target="_blank" href="http://trails.org/our-trails/eastern-prom-trail/">Eastern Promenade</a>, <a target="_blank" href="https://www.meca.edu">Maine College of Art</a></li>
+    <li>Rockland, ME - <a target="_blank" href="http://www.rocklandharborlights.org/index.html">Rockland Breakwater Light</a></li>
+    <li>Camden, ME - <a target="_blank" href="https://www.longgraincamden.com">Long Grain</a>, <a target="_blank" href="https://www.maine.gov/dacf/parks/trail_activities/camden_trail_conditions.shtml">Camden Hills State Park</a></li>
+  </ul>
+</div>
+
+<div id="details_etc" class="bg-1">
+  <div class="container">
+    <h3 class="text-center">WEEKEND DETAILS & STUFF TO DO!</h3>
+    <p>On Saturday we'll have a quick ceremony on the grounds at about 4:30 pm, to be followed with food and frivolity. Expect some beach combing, lawn games, a bonfire, and some dancing. It's just gonna be a big bbq on the beach and we're really looking forward to it!</p>
+    <p>Earlier in the day, you can join us for some hiking in Acadia National Park, about 1 hour and 15 minutes away from the Lookout. Or feel free to explore the park on your own! Our favorites include all the greatest hits: Beehive Trail, Jordan Pond, Cadillac Mountain, Bass Harbor Head, Little Hunter's Beach, Ocean Path, and Otter Point. We will also have kayaks available at the Lookout so you can paddle about the coastline. On Sunday, if your schedule allows, join us for brunch before saying goodbye.</p>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-center">
+  <a class="up-arrow" href="#home" data-toggle="tooltip" title="TO TOP">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+  </a>
+</footer>
+
+<script>
+$(document).ready(function(){
+  // Initialize Tooltip
+  $('[data-toggle="tooltip"]').tooltip();
+
+  $('[data-toggle="popover"]').popover();
+
+  // Add smooth scrolling to all links in navbar + footer link
+  $(".navbar a, footer a[href='#home']").on('click', function(event) {
+
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 900, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+})
+</script>
+
+</body>
+</html>
