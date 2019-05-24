@@ -233,3 +233,12 @@ def rsvp(rsvp_url_path):
 
     else:
         return render_template('error.html', rsvp_url_path=rsvp_url_path)
+
+
+@app.route('/view_rsvps/<admin_key>')
+def view_rsvps(admin_key):
+
+    allowed_key = 'e5446957-2fe1-4586-b5b4-7f02615eb2bd'
+
+    if admin_key == allowed_key:
+        return render_template('view_rsvps.html', rsvps=tuple(RSVP.objects.all()))

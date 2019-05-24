@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>LMO+STC=COOL: RSVPs</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link href="https://use.typekit.net/tih7ugf.css?v1" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+  <div class="container">
+    {% for rsvp in rsvps %}
+      <div class="row">
+        <h1>{{ rsvp.names_of_people_in_party }}</h1>
+        {% for url_path in rsvp.url_paths %}
+          <p><a href="/{{ url_path }}">lmo-stc.cool/{{ url_path }}</a>
+        {% endfor %}
+        <p>Last seen: {{ rsvp.last_seen }}
+      </div>
+    {% endfor %}
+  </div>
+
+</body>
+</html>
