@@ -8,7 +8,7 @@ from flask_restful import Api as RESTFULApi, Resource, reqparse
 from pymodm.connection import connect
 from pymodm.errors import ValidationError
 
-from mongo_credentials import mongo_username, mongo_password
+from credentials import admin_key, secret_key, mongo_username, mongo_password
 from rsvp_model import RSVP
 
 
@@ -16,7 +16,7 @@ app = Flask(__name__)
 restful_api = RESTFULApi(app)
 Bootstrap(app)
 
-app.secret_key = '184963b1-c23a-4b30-845d-073bfe3210f0'
+app.secret_key = secret_key
 
 base_uri = f'mongodb://{mongo_username}:{mongo_password}@localhost:27017'
 wedding_uri = f'{base_uri}/wedding?authSource=admin'
@@ -62,9 +62,9 @@ class UpdateBoolField(GetRSVPMixin, Resource):
                 return False
 
             setattr(rsvp, args['key'], value)
-            rsvp.save()
 
-            return True
+            rsvp.save_parameter()
+            return {'last_saved': rsvp.formatted_last_saved}
 
         return False
 
@@ -92,7 +92,11 @@ class UpdateDietaryRestrictions(GetRSVPMixin, Resource):
             ).update({'$set': {f'people.$.{args["dietary_name"]}': value}})
 
         if result != 0:
-            return True
+
+            rsvp = self._get_rsvp(rsvp_id)
+            rsvp.save_parameter()
+
+            return {'last_saved': rsvp.formatted_last_saved}
 
         return False
 
@@ -116,13 +120,13 @@ class UpdateEmailAddress(GetRSVPMixin, Resource):
                 rsvp.email_address = email_address
 
             try:
-                rsvp.save()
+                rsvp.save_parameter()
 
             except ValidationError:
                 pass
 
             else:
-                return True
+                return {'last_saved': rsvp.formatted_last_saved}
 
         return False
 
@@ -139,13 +143,13 @@ class UpdateSuggestedSongs(GetRSVPMixin, Resource):
 
             rsvp.suggested_songs = args['suggested_songs']
             try:
-                rsvp.save()
+                rsvp.save_parameter()
 
             except ValidationError:
                 pass
 
             else:
-                return True
+                return {'last_saved': rsvp.formatted_last_saved}
 
         return False
 
@@ -158,10 +162,12 @@ class UpdateGuestName(GetRSVPMixin, Resource):
 
         result = RSVP.objects.raw({'_id': ObjectId(rsvp_id)}).update({'$set': {'guest.name': args['guest_name']}})
 
-        rsvp = self._get_rsvp(rsvp_id)
-
         if result != 0:
-            return rsvp.names_of_people_in_party
+
+            rsvp = self._get_rsvp(rsvp_id)
+            rsvp.save_parameter()
+
+            return {'last_saved': rsvp.formatted_last_saved, 'names_of_people_in_party': rsvp.names_of_people_in_party}
 
         return False
 
@@ -187,7 +193,11 @@ class UpdateDietaryOther(GetRSVPMixin, Resource):
             ).update({'$set': {f'people.$.dietary_other': value}})
 
         if result != 0:
-            return True
+
+            rsvp = self._get_rsvp(rsvp_id)
+            rsvp.save_parameter()
+
+            return {'last_saved': rsvp.formatted_last_saved}
 
         return False
 
@@ -235,10 +245,8 @@ def rsvp(rsvp_url_path):
         return render_template('error.html', rsvp_url_path=rsvp_url_path)
 
 
-@app.route('/view_rsvps/<admin_key>')
-def view_rsvps(admin_key):
+@app.route('/view_rsvps/<key>')
+def view_rsvps(key):
 
-    allowed_key = 'e5446957-2fe1-4586-b5b4-7f02615eb2bd'
-
-    if admin_key == allowed_key:
+    if key == admin_key:
         return render_template('view_rsvps.html', rsvps=tuple(RSVP.objects.all()))

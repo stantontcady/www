@@ -2,24 +2,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>LMO+STC=COOL: RSVP</title>
+  <title>{{ rsvp.names_of_people_in_party }} RSVP</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <link href="https://use.typekit.net/tih7ugf.css?v1" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato|Montserrat" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <style>
   body {
     color: #000;
   }
-  h1 {
+  #accept_rsvp h1, #accept_rsvp h2 {
+    font-family: Montserrat, sans-serif;
+    letter-spacing: 4px;
+  }
+  #accept_rsvp h1 {
+    font-size: 30px !important;
+  }
+  #accept_rsvp h2 {
+    font-size: 22px !important;
+  }
+  #invite h1 {
     font-family: tilda-petite, sans-serif;
     font-weight: 400;
     font-style: normal;
     font-size: 2.5em;
   }
-  p {
+  #accept_rsvp p, .form label {
+    font: 400 16px/1.8 Lato, sans-serif;
+  }
+  #invite p {
     font-family: mrs-eaves-roman-petite-caps, sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -104,117 +118,225 @@
       Brooklin, Maine<br />
     </p>
   </div>
+
   <div id="rsvp_buttons" class="container text-center">
     <div id="left_button"><a id="accept_button" href="#accept_rsvp">Accept With Pleasure</a></div>
     <div id="right_button"><a id="decline_button" href="#decline_rsvp">Regretfully Decline</a></div>
   </div>
+
   <div id="accept_rsvp" class="container text-center"{% if not rsvp.accept %} style="display: none;"{% endif %}>
-    <h1>Details</h1>
-    {% if rsvp.which_schedule == 'family' %}
-    <p>We couldn’t be more excited to celebrate with you in Maine! Here are a few things we’re planning for the weekend. You’re welcome to join in as many things as you like. Breakfast is included at the Lookout and will be served in the dining room. Let us know about any questions or concerns, and see you soon.</p>
-    {% else %}
-    <p>We couldn’t be more excited to celebrate with you in Maine! Here are a few things we’re planning for the weekend. You’re welcome to join in as many things as you like. Let us know about any questions or concerns, and see you soon!</p>
-    {% endif %}
+    <h1>Party Info / Response</h1>
+    <p>We couldn’t be more excited to celebrate with you in Maine! Please indicate any dietary restrictions for each person below and check the box for all of the activities you're interesting in attending (see details below)--you're welcome to partake in as many things as you'd like. Please provide your email address so we can update you about any last-minute changes. Finally, let us know if there are any songs you <i>have</i> to hear on Saturday night.</p>
 
     <div class="row">
       {% for person in rsvp.people %}
         <div class="col-xs-6">
-          <h1>{{ person.name }}</h1>
-          <div class="form-check">
-            <input class="form-check-input auto_save_dietary_restrictions" type="checkbox" value="" id="{{ person.name }}-dietary_vegetarian"{% if person.dietary_vegetarian %} checked {% endif %}>
-            <label class="form-check-label" for="{{ person.name }}-dietary_vegetarian">
+          <h2>{{ person.name }}</h2>
+          <div class="form">
+            <input class="auto_save_dietary_restrictions" type="checkbox" value="" id="{{ person.name }}-dietary_vegetarian"{% if person.dietary_vegetarian %} checked {% endif %}>
+            <label for="{{ person.name }}-dietary_vegetarian">
               Vegetarian
             </label>
           </div>
-          <div class="form-check">
-            <input class="form-check-input auto_save_dietary_restrictions" type="checkbox" value="" id="{{ person.name }}-dietary_gluten_free"{% if person.dietary_gluten_free %} checked {% endif %}>
-            <label class="form-check-label" for="{{ person.name }}-dietary_gluten_free">
+          <div class="form">
+            <input class="auto_save_dietary_restrictions" type="checkbox" value="" id="{{ person.name }}-dietary_gluten_free"{% if person.dietary_gluten_free %} checked {% endif %}>
+            <label for="{{ person.name }}-dietary_gluten_free">
               Gluten-Free
             </label>
           </div>
-          <div class="form-check">
-            <input class="form-check-input dietary_other_check" type="checkbox" value="" id="{{ person.name }}-dietary_other_check"{% if person.dietary_other %} checked {% endif %}>
-            <label class="form-check-label" for="{{ person.name }}-dietary_other_check">
+          <div class="form">
+            <input class="dietary_other_check" type="checkbox" value="" id="{{ person.name }}-dietary_other_check"{% if person.dietary_other %} checked {% endif %}>
+            <label for="{{ person.name }}-dietary_other_check">
               Other
             </label>
           </div>
-          <div class="form-group">
-            <input type="text" class="form-control dietary_other_value" id="{{ person.name }}-dietary_other_value" {% if person.dietary_other %} value="{{person.dietary_other}}"{% else %} style="display: none;" {% endif %}>
+          <div class="form">
+            <input type="text" class="dietary_other_value" id="{{ person.name }}-dietary_other_value" {% if person.dietary_other %} value="{{person.dietary_other}}"{% else %} style="display: none;" {% endif %}>
           </div>
         </div>
       {% endfor %}
       {% if rsvp.guest %}
         <div class="col-xs-6">
-          <h1>Guest</h1>
-          <div class="form-group">
+          <h2>Guest</h2>
+          <div class="form">
             <label for="guest_name">Name</label>
-            <input type="text" class="form-control" id="guest_name" {% if rsvp.guest.name %} value="{{rsvp.guest.name}}"{% endif %}>
+            <input type="text" id="guest_name" {% if rsvp.guest.name %} value="{{rsvp.guest.name}}"{% endif %}>
           </div>
-          <div class="form-check">
-            <input class="form-check-input auto_save_dietary_restrictions" type="checkbox" value="" id="guest-dietary_vegetarian"{% if rsvp.guest.dietary_vegetarian %} checked {% endif %}>
-            <label class="form-check-label" for="guest-dietary_vegetarian">
+          <div class="form">
+            <input class="auto_save_dietary_restrictions" type="checkbox" value="" id="guest-dietary_vegetarian"{% if rsvp.guest.dietary_vegetarian %} checked {% endif %}>
+            <label for="guest-dietary_vegetarian">
               Vegetarian
             </label>
           </div>
-          <div class="form-check">
-            <input class="form-check-input auto_save_dietary_restrictions" type="checkbox" value="" id="guest-dietary_gluten_free"{% if rsvp.guest.dietary_gluten_free %} checked {% endif %}>
-            <label class="form-check-label" for="guest-dietary_gluten_free">
+          <div class="form">
+            <input class="auto_save_dietary_restrictions" type="checkbox" value="" id="guest-dietary_gluten_free"{% if rsvp.guest.dietary_gluten_free %} checked {% endif %}>
+            <label for="guest-dietary_gluten_free">
               Gluten-Free
             </label>
           </div>
-          <div class="form-check">
-            <input class="form-check-input dietary_other_check" type="checkbox" value="" id="guest-dietary_other_check"{% if rsvp.guest.dietary_other %} checked {% endif %}>
-            <label class="form-check-label" for="guest-dietary_other_check">
+          <div class="form">
+            <input class="dietary_other_check" type="checkbox" value="" id="guest-dietary_other_check"{% if rsvp.guest.dietary_other %} checked {% endif %}>
+            <label for="guest-dietary_other_check">
               Other
             </label>
           </div>
-          <div class="form-group">
-            <input type="text" class="form-control dietary_other_value" id="guest-dietary_other_value" {% if rsvp.guest.dietary_other %} value="{{rsvp.guest.dietary_other}}"{% else %} style="display: none;" {% endif %}>
+          <div class="form">
+            <input type="text" class="dietary_other_value" id="guest-dietary_other_value" {% if rsvp.guest.dietary_other %} value="{{rsvp.guest.dietary_other}}"{% else %} style="display: none;" {% endif %}>
           </div>
         </div>
       {% endif %}
     </div>
 
-    <div class="form-check">
-      <input class="form-check-input auto_save_activity_rsvp" type="checkbox" value="" id="friday_hike"{% if rsvp.friday_hike %} checked {% endif %}>
-      <label class="form-check-label" for="friday_hike">
-        Do you plan to meet us in Acadia on Friday, September 27th at 9:30 am
+    <h2>Weekend Activities</h2>
+    <div class="form">
+      <input class="auto_save_activity_rsvp" type="checkbox" value="" id="friday_hike"{% if rsvp.friday_hike %} checked {% endif %}>
+      <label for="friday_hike">
+        Friday Morning Acadia visit
       </label>
     </div>
     {% if rsvp.which_schedule == 'family' %}
-      <div class="form-check">
-        <input class="form-check-input auto_save_activity_rsvp" type="checkbox" value="" id="friday_dinner" {% if rsvp.friday_dinner %} checked {% endif %}>
-        <label class="form-check-label" for="friday_dinner">
-          Will you join us for dinner at Barncastle Restaurant on Friday, September 27th at 5:00 pm?
-        </label>
-      </div>
+    <div class="form">
+      <input class="auto_save_activity_rsvp" type="checkbox" value="" id="friday_dinner" {% if rsvp.friday_dinner %} checked {% endif %}>
+      <label for="friday_dinner">
+        Friday Dinner at Barncastle Restaurant
+      </label>
+    </div>
     {% endif %}
-    <div class="form-check">
-      <input class="form-check-input auto_save_activity_rsvp" type="checkbox" value="" id="friday_bonfire" {% if rsvp.friday_bonfire %} checked {% endif %}>
-      <label class="form-check-label" for="friday_bonfire">
-        Will you join us for a bonfire on Friday, September 27th after 7:00 pm?
+    <div class="form">
+      <input class="auto_save_activity_rsvp" type="checkbox" value="" id="friday_bonfire" {% if rsvp.friday_bonfire %} checked {% endif %}>
+      <label for="friday_bonfire">
+        Friday Bonfire at The Lookout
       </label>
     </div>
-    <div class="form-check">
-      <input class="form-check-input auto_save_activity_rsvp" type="checkbox" value="" id="saturday_activity" {% if rsvp.saturday_activity %} checked {% endif %}>
-      <label class="form-check-label" for="saturday_activity">
-        Do you plan to meet us at Osgood Trailhead at Blue Hill Mountain on Saturday, September 28th at 11:00 am?
+    <div class="form">
+      <input class="auto_save_activity_rsvp" type="checkbox" value="" id="saturday_activity" {% if rsvp.saturday_activity %} checked {% endif %}>
+      <label for="saturday_activity">
+        Saturday Morning Osgood Trail Walk
       </label>
     </div>
-    <div class="form-check">
-      <input class="form-check-input auto_save_activity_rsvp" type="checkbox" value="" id="sunday_brunch" {% if rsvp.sunday_brunch %} checked {% endif %}>
-      <label class="form-check-label" for="sunday_brunch">
-        Will you join us for breakfast at the Lookout on Sunday, September 29th?
+    <div class="form">
+      <input class="auto_save_activity_rsvp" type="checkbox" value="" id="sunday_brunch" {% if rsvp.sunday_brunch %} checked {% endif %}>
+      <label for="sunday_brunch">
+        Sunday Morning Brunch at The Lookout
       </label>
     </div>
-    <div class="form-group">
+    <h2>Email and Music</h2>
+    <div class="form">
       <label for="email">Email address</label>
-      <input type="email" class="form-control" id="email" placeholder="name@example.com"{% if rsvp.email_address %} value="{{rsvp.email_address}}"{% endif %}>
+      <input type="email" id="email" placeholder="name@example.com"{% if rsvp.email_address %} value="{{rsvp.email_address}}"{% endif %}>
     </div>
-    <div class="form-group">
+    <div class="form">
       <label for="suggested_songs">Song Suggestions</label>
-      <input type="text" class="form-control" id="suggested_songs" {% if rsvp.suggested_songs %} value="{{rsvp.suggested_songs}}"{% endif %}>
+      <input type="text" id="suggested_songs" {% if rsvp.suggested_songs %} value="{{rsvp.suggested_songs}}"{% endif %}>
     </div>
+
+    <p><i>Last saved: <span id="last_saved_time">{% if rsvp.last_saved %}{{ rsvp.formatted_last_saved }}{% else %} Never {% endif %}</span></i></p>
+
+    <div class="container text-center">
+      <h1>Lodging Information</h1>
+      {% if rsvp.which_schedule == 'family' %}
+      <p class="text-center">We have arranged for you to stay at the Lookout on Friday and Saturday nights. Please contact the folks at the Lookout at (207) 359-2188 to confirm your place. If you would like to stay additional nights before or after these dates, please arrange with the Lookout. Breakfast is included at the Lookout and will be served in the dining room. Let us know about any questions or concerns, and see you soon. Thanks!</p>
+      {% else %}
+      <p class="text-center">We recommend making a reservation at the nearby <a href="https://www.thebrooklininn.com/" target="_blank">Brooklin Inn</a> or <a href="https://www.themainehideaway.com/" target="_blank">Maine Hideaway Guest House</a>. There are also some great options on Airbnb and VRBO, particularly for larger groups. One thing to note: while the Lookout lists some of their rooms/cottages on Airbnb, these rooms are already booked for the weekend of September 27-28. </p>
+      {% endif %}
+    </div>
+    <div class="container text-justify">
+      <h1 class="text-center">Schedule</h1>
+      <div class="row text-center">
+        <h2>Friday, September 27</h2>
+      </div>
+      <div class="row">
+        <div class="col-xs-3 text-center">
+          <h2>9:30 am</h2>
+        </div>
+        <div class="col-xs-9">
+          <p><b>Morning Acadia visit:</b> We plan to meet at Ocean Path trailhead in Acadia National Park at 9:30 am and walk along the shoreline to Otter Point. We’ll stop at Little Hunter’s Beach and Cadillac Mountain before heading back for a late lunch. You can buy your park pass in advance <a href="https://yourpassnow.com/r1s/site/74271" target="_blank">here</a>.</p>
+        </div>
+      </div>
+      {% if rsvp.which_schedule == 'family' %}
+      <div class="row">
+        <div class="col-xs-3 text-center">
+          <h2>5:00 pm</h2>
+        </div>
+        <div class="col-xs-9">
+          <p><b>Dinner:</b> Join us for pizza dinner and drinks at <a href="https://www.barn-castle.com" target="_blank">Barncastle Restaurant</a> in Blue Hill at 5:00 pm. More details to come soon.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3 text-center">
+          <h2>7:00 pm</h2>
+        </div>
+        <div class="col-xs-9">
+          <p><b>Bonfire:</b> After dinner, roast some marshmallows with us at a bonfire on the Lookout grounds.</p>
+        </div>
+      </div>
+      {% else %}
+      <div class="row">
+        <div class="col-xs-3 text-center">
+          <h2>7:00 pm</h2>
+        </div>
+        <div class="col-xs-9">
+          <p><b>Bonfire:</b> Come to the Lookout starting at 7:00 pm to roast some marshmallows with us. </p>
+        </div>
+      </div>
+      {% endif %}
+      <div class="row">
+        <h2 class="text-center">Saturday, September 28</h2>
+      </div>
+      <div class="row">
+        <div class="col-xs-3 text-center">
+          <h2>11:00 am</h2>
+        </div>
+        <div class="col-xs-9">
+          <p><b>Morning walk:</b> There are plenty of beautiful hikes in the Brooklin area. We’re planning to check out the <a href="https://actoutwithaislinn.bangordailynews.com/2012/10/16/one-minute-hikes/1-minute-hike-blue-hill-mountain-blue-hill-maine/" target="_blank">Osgood Trail</a> up Blue Hill Mountain at 11:00 am. 
+  </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3 text-center">
+          <h2>4:30 pm</h2>
+        </div>
+        <div class="col-xs-9">
+          <p><b>Ceremony and celebration:</b> We’re tying the knot at 4:30 pm! We’ll have a brief ceremony with our family and closest friends, followed by dinner, drinks, dancing, and lawn games. See you at the Lookout, and be sure to dress for the <a href="https://darksky.net/details/44.2764,-68.5475/2019-9-28/us12/en" target="_blank">weather</a>!
+  </p>
+        </div>
+      </div>
+      <div class="row">
+        <h2 class="text-center">Sunday, September 29</h2>
+      </div>
+      <div class="row">
+        <div class="col-xs-3 text-center">
+          <h2>8:00 am</h2>
+        </div>
+        <div class="col-xs-9">
+          <p><b>Breakfast:</b> We hope to catch you one last time before heading out of town over breakfast at the Lookout. Thank you for much being a part of our wedding! We could not be more grateful.
+  </p>
+        </div>
+      </div>
+    </div>
+    <div class ="container text-justify">
+      <h1 class="text-center">Stuff to Do</h1>
+      <div class="row">
+        <div class="col-sm-5">
+          <h2 class="text-center">Fun</h2>
+          <ul>
+            <li><p>We’ll have kayaks rented at the Lookout during the weekend that you can use to paddle along the shoreline. Feel free to stop by and explore whenever you like.</p></li>
+            <li><p>Other places to explore include Cooper Farm at <a href="http://bluehillheritagetrust.org/cooper-farm-at-caterpillar-hill/" target="_blank">Caterpillar Hill</a> and <a href="https://bluehillheritagetrust.org/peters-brook-trail-and-peters-cove/" target="_blank">Peter’s Brook</a>.</p></li>
+          </ul>
+        </div>
+        <div class="col-sm-7">
+          <h2 class="text-center">Food</h2>
+          <ul>
+            <li><p><a href="https://sandysbluehillcafe.com/" target="_blank">Sandy’s Blue Hill Cafe</a> - for all your breakfast and lunch needs</p></li>
+            <li><p><a href="https://bluehill.coop/cafe" target="_blank">Blue Hill Co-op Cafe and Bakery</a> - breakfast sandwiches, pastries, and more</p></li>
+            <li><p><a href="http://bucklyncoffee.com/" target="_blank">Bucklyn Coffee</a> - locally roasted beans</p></li>
+            <li><p><a href="https://www.tradewindsmarkets.com/locations/blue-hill/" target="_blank">Tradewinds</a> - a fine purveyor of comestibles</p></li>
+            <li><p><a href="http://brooklingeneralstore.com/" target="_blank">Brooklin General Store</a> - nice spot for to-go sandwiches and odds and ends</p></li>
+            <li><p><a href="https://www.arborvine.com/deepwater-brew-pub" target="_blank">Deepwater Brewing Company</a> - brewery with pub fare</p></li>
+          </ul>
+        </div>
+      </div>
+  </div>
   </div>
 
   <script>
@@ -230,7 +352,10 @@
         $.ajax({
           url: '/update_email_address/{{ rsvp._id }}',
           type: 'PUT',
-          data: "email_address=" + $('#email').val()
+          data: "email_address=" + $('#email').val(),
+          success: function(data) {
+            $('#last_saved_time').html(data.last_saved);
+          }
         });
       }, 500);
     });
@@ -245,7 +370,10 @@
         $.ajax({
           url: '/update_suggested_songs/{{ rsvp._id }}',
           type: 'PUT',
-          data: "suggested_songs=" + $('#suggested_songs').val()
+          data: "suggested_songs=" + $('#suggested_songs').val(),
+          success: function(data) {
+            $('#last_saved_time').html(data.last_saved);
+          }
         });
       }, 500);
     });
@@ -262,7 +390,8 @@
           type: 'PUT',
           data: "guest_name=" + $('#guest_name').val(),
           success: function(data) {
-            $('#names_of_people_in_party').html(data);
+            $('#names_of_people_in_party').html(data.names_of_people_in_party);
+            $('#last_saved_time').html(data.last_saved);
           }
         });
       }, 500);
@@ -283,7 +412,10 @@
         $.ajax({
           url: '/update_dietary_other/{{ rsvp._id }}',
           type: 'PUT',
-          data: "name=" + name + "&value=" + value
+          data: "name=" + name + "&value=" + value,
+          success: function(data) {
+            $('#last_saved_time').html(data.last_saved);
+          }
         });
       }, 500);
     });
@@ -307,7 +439,10 @@
         $.ajax({
           url: '/update_dietary_other/{{ rsvp._id }}',
           type: 'PUT',
-          data: "name=" + name + "&value="
+          data: "name=" + name + "&value=",
+          success: function(data) {
+            $('#last_saved_time').html(data.last_saved);
+          }
         });
 
       }
@@ -321,7 +456,10 @@
       $.ajax({
         url: '/update_bool_field/{{ rsvp._id }}',
         type: 'PUT',
-        data: "key=" + this.id + "&value=" + value
+        data: "key=" + this.id + "&value=" + value,
+          success: function(data) {
+            $('#last_saved_time').html(data.last_saved);
+          }
       });
     });
 
@@ -335,7 +473,10 @@
       $.ajax({
         url: '/update_dietary_restrictions/{{ rsvp._id }}',
         type: 'PUT',
-        data: "name=" + name + "&dietary_name=" + dietary_name + "&value=" + value
+        data: "name=" + name + "&dietary_name=" + dietary_name + "&value=" + value,
+          success: function(data) {
+            $('#last_saved_time').html(data.last_saved);
+          }
       });
     });
 
@@ -349,13 +490,16 @@
         $.ajax({
           url: '/update_bool_field/{{ rsvp._id }}',
           type: 'PUT',
-          data: "key=accept&value=1"
+          data: "key=accept&value=1",
+          success: function(data) {
+            $('#last_saved_time').html(data.last_saved);
+          }
         });
 
         $('#accept_rsvp').css('min-height', $('#invite').outerHeight() + 'px');
         $('#accept_rsvp').show();
         $('html, body').animate({
-          scrollTop: $('#rsvp_buttons').offset().top
+          scrollTop: $('#accept_rsvp').offset().top
         }, 750);
 
       } else if (window.location.hash == "") {
@@ -370,7 +514,10 @@
         $.ajax({
           url: '/update_bool_field/{{ rsvp._id }}',
           type: 'PUT',
-          data: "key=accept&value=0"
+          data: "key=accept&value=0",
+          success: function(data) {
+            $('#last_saved_time').html(data.last_saved);
+          }
         });
 
       } else {

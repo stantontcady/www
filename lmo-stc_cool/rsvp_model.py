@@ -1,5 +1,7 @@
 
+from datetime import datetime
 from pymodm import fields, EmbeddedMongoModel, MongoModel
+from pytz import timezone, UTC
 
 
 class Person(EmbeddedMongoModel):
@@ -15,7 +17,8 @@ class RSVP(MongoModel):
 
     url_paths = fields.ListField(fields.CharField(), required=True)
 
-    last_seen = fields.DateTimeField()
+    last_seen = fields.DateTimeField(blank=True)
+    last_saved = fields.DateTimeField(blank=True)
 
     email_address = fields.EmailField(blank=True)
 
@@ -25,7 +28,7 @@ class RSVP(MongoModel):
     which_schedule = fields.CharField(default='friends')
     which_lodging = fields.CharField(default='other')
 
-    accept = fields.BooleanField(default=False)
+    accept = fields.BooleanField(blank=True)
     friday_hike = fields.BooleanField(default=False)
     friday_dinner = fields.BooleanField(default=False)
     friday_bonfire = fields.BooleanField(default=False)
@@ -37,6 +40,11 @@ class RSVP(MongoModel):
     class Meta:
         connection_alias = 'wedding-connection'
         collection_name = 'rsvp'
+
+
+    def save_parameter(self, *args, **kwargs):
+        self.last_saved = datetime.now()
+        return super().save(*args, **kwargs)
 
 
     @property
@@ -61,3 +69,10 @@ class RSVP(MongoModel):
 
         else:
             return ', '.join(names[:-1]) + ', and ' + names[-1]
+
+
+    @property
+    def formatted_last_saved(self):
+        return self.last_saved.replace(
+            tzinfo=UTC
+        ).astimezone(timezone('US/Eastern')).strftime('%Y-%m-%d %I:%M:%S %p %Z')
