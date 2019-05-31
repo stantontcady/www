@@ -39,9 +39,15 @@
     font-style: normal;
     font-size: 1.75em;
   }
-  img {
+  #invite img {
     width: 175px;
-    margin: 25px 0;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+  #accept_rsvp img {
+    width: 550px;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
   #invite, #rsvp_buttons {
     margin: 20px auto;
@@ -69,9 +75,11 @@
   #left_button {
     float: left;
     border-left: 1px solid #000;
+    cursor: pointer;
   }
   #right_button {
     float: right;
+    cursor: pointer;
   }
   #left_button a, #right_button a {
     color: #000;
@@ -80,8 +88,12 @@
     color: #000;
   }
 
+  .disabled_button {
+    opacity: 0.25;
+  }
+
   @media only screen and (max-width: 570px) {
-    img {
+    #invite img {
       width: 45%;
     }
     h1 {
@@ -120,11 +132,14 @@
   </div>
 
   <div id="rsvp_buttons" class="container text-center">
-    <div id="left_button"><a id="accept_button" href="#accept_rsvp">Accept With Pleasure</a></div>
-    <div id="right_button"><a id="decline_button" href="#decline_rsvp">Regretfully Decline</a></div>
+    <div id="left_button"{% if rsvp.accept is not none and not rsvp.accept %} class="disabled_button"{% endif %}>Accept With Pleasure</div>
+    <div id="right_button"{% if rsvp.accept is not none and rsvp.accept %} class="disabled_button"{% endif %}>Regretfully Decline</div>
   </div>
 
   <div id="accept_rsvp" class="container text-center"{% if not rsvp.accept %} style="display: none;"{% endif %}>
+
+    <img class="img-responsive center-block" src="{{ url_for('static', filename='img/bunting.png') }}" />
+
     <h1>Party Info / Response</h1>
     <p>We couldn’t be more excited to celebrate with you in Maine! Please indicate any dietary restrictions for each person below and check the box for all of the activities you're interesting in attending (see details below)--you're welcome to partake in as many things as you'd like. Please provide your email address so we can update you about any last-minute changes. Finally, let us know if there are any songs you <i>have</i> to hear on Saturday night.</p>
 
@@ -480,50 +495,88 @@
       });
     });
 
+    $('#left_button').click(function() {
 
-    window.onhashchange = function(event) {
+      $.ajax({
+        url: '/update_bool_field/{{ rsvp._id }}',
+        type: 'PUT',
+        data: "key=accept&value=1",
+        success: function(data) {
+          $('#last_saved_time').html(data.last_saved);
+        }
+      });
 
-      event.preventDefault();
+      $('#accept_rsvp').css('min-height', $('#invite').outerHeight() + 'px');
+      $('#accept_rsvp').show();
+      $('#right_button').css('opacity', 0.25);
+      $('#left_button').css('opacity', 1);
 
-      if (window.location.hash == "#accept_rsvp") {
+      $('html, body').animate({
+        scrollTop: $('#accept_rsvp').offset().top
+      }, 750);
 
-        $.ajax({
-          url: '/update_bool_field/{{ rsvp._id }}',
-          type: 'PUT',
-          data: "key=accept&value=1",
-          success: function(data) {
-            $('#last_saved_time').html(data.last_saved);
-          }
-        });
+    });
 
-        $('#accept_rsvp').css('min-height', $('#invite').outerHeight() + 'px');
-        $('#accept_rsvp').show();
-        $('html, body').animate({
-          scrollTop: $('#accept_rsvp').offset().top
-        }, 750);
+    $('#right_button').click(function() {
 
-      } else if (window.location.hash == "") {
+      $('#left_button').css('opacity', 0.25);
+      $('#right_button').css('opacity', 1);
+      $('#accept_rsvp').hide();
 
-        $('html, body').animate({
-          scrollTop: $('#invite').offset().top
-        }, 750);
-        $('#accept_rsvp').hide();
+      $.ajax({
+        url: '/update_bool_field/{{ rsvp._id }}',
+        type: 'PUT',
+        data: "key=accept&value=0",
+        success: function(data) {
+          $('#last_saved_time').html(data.last_saved);
+        }
+      });
 
-      } else if (window.location.hash == "#decline_rsvp") {
+    });
 
-        $.ajax({
-          url: '/update_bool_field/{{ rsvp._id }}',
-          type: 'PUT',
-          data: "key=accept&value=0",
-          success: function(data) {
-            $('#last_saved_time').html(data.last_saved);
-          }
-        });
-
-      } else {
-        console.log(window.location.hash); 
-      }
-    }
+    // window.onhashchange = function(event) {
+    //
+    //   event.preventDefault();
+    //
+    //   if (window.location.hash == "#accept_rsvp") {
+    //
+    //     $.ajax({
+    //       url: '/update_bool_field/{{ rsvp._id }}',
+    //       type: 'PUT',
+    //       data: "key=accept&value=1",
+    //       success: function(data) {
+    //         $('#last_saved_time').html(data.last_saved);
+    //       }
+    //     });
+    //
+    //     $('#accept_rsvp').css('min-height', $('#invite').outerHeight() + 'px');
+    //     $('#accept_rsvp').show();
+    //     $('html, body').animate({
+    //       scrollTop: $('#accept_rsvp').offset().top
+    //     }, 750);
+    //
+    //   } else if (window.location.hash == "") {
+    //
+    //     $('html, body').animate({
+    //       scrollTop: $('#invite').offset().top
+    //     }, 750);
+    //     $('#accept_rsvp').hide();
+    //
+    //   } else if (window.location.hash == "#decline_rsvp") {
+    //
+    //     $.ajax({
+    //       url: '/update_bool_field/{{ rsvp._id }}',
+    //       type: 'PUT',
+    //       data: "key=accept&value=0",
+    //       success: function(data) {
+    //         $('#last_saved_time').html(data.last_saved);
+    //       }
+    //     });
+    //
+    //   } else {
+    //     console.log(window.location.hash);
+    //   }
+    // }
 
     // Add smooth scrolling to all links in navbar + footer link
 
