@@ -166,7 +166,7 @@
             </label>
           </div>
           <div class="form">
-            <input type="text" class="dietary_other_value" id="{{ person.name }}-dietary_other_value" {% if person.dietary_other %} value="{{person.dietary_other}}"{% else %} style="display: none;" {% endif %}>
+            <input type="text" class="dietary_other_value" id="{{ person.name }}-dietary_other_value" {% if person.dietary_other %} value="{{ person.dietary_other }}"{% else %} style="display: none;" {% endif %}>
           </div>
         </div>
       {% endfor %}
@@ -175,7 +175,7 @@
           <h2>Guest</h2>
           <div class="form">
             <label for="guest_name">Name</label>
-            <input type="text" id="guest_name" {% if rsvp.guest.name %} value="{{rsvp.guest.name}}"{% endif %}>
+            <input type="text" id="guest_name" {% if rsvp.guest.name %} value="{{ rsvp.guest.name }}"{% endif %}>
           </div>
           <div class="form">
             <input class="auto_save_dietary_restrictions" type="checkbox" value="" id="guest-dietary_vegetarian"{% if rsvp.guest.dietary_vegetarian %} checked {% endif %}>
