@@ -254,4 +254,4 @@ def rsvp(rsvp_url_path):
 def view_rsvps(key):
 
     if key == admin_key:
-        return render_template('view_rsvps.html', rsvps=tuple(RSVP.objects.all()))
+        return render_template('view_rsvps.html', rsvps=tuple(RSVP.objects.all()), key=key)
