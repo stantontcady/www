@@ -17,7 +17,7 @@
       <div class="row">
         <h1>{{ rsvp.names_of_people_in_party }}</h1>
         {% for url_path in rsvp.url_paths %}
-          <p><a href="/{{ url_path }}">lmo-stc.cool/{{ url_path }}</a>
+	<p><a href="/{{ url_path }}?key={{ key }}">lmo-stc.cool/{{ url_path }}</a>
         {% endfor %}
         {% if rsvp.accept is not none%}<p>{% if rsvp.accept %}Accepted{% else %}Declined{% endif %}</p>{% endif %}
         {% if rsvp.guest is not none%}<p>Guest name: {{ rsvp.guest.name }}</p>{% endif %}
