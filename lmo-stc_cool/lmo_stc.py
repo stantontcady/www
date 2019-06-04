@@ -2,7 +2,7 @@
 from datetime import datetime
 
 from bson.objectid import ObjectId
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
 from flask_restful import Api as RESTFULApi, Resource, reqparse
 from pymodm.connection import connect
@@ -235,9 +235,14 @@ def rsvp(rsvp_url_path):
     rsvp = get_rsvp_from_url_path(rsvp_url_path.casefold())
 
     if rsvp is not None:
+        try:
+            key = request.args.get('key')
+        except Exception:
+            key = None
 
-        rsvp.last_seen = datetime.now()
-        rsvp.save()
+        if key is None or key != admin_key:
+            rsvp.last_seen = datetime.now()
+            rsvp.save()
 
         return render_template('rsvp.html', rsvp=rsvp)
 
