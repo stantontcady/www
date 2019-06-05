@@ -13,6 +13,10 @@
 <body>
 
   <div class="container">
+
+    <h2>Number accepted: {{ rsvp_class.num_accepted() }} ({{ rsvp_class.num_people_accepted() }} People)</h2>
+    <h2>Number declined: {{ rsvp_class.num_declined() }}</h2>
+
     {% for rsvp in rsvps %}
       <div class="row">
         <h1>{{ rsvp.names_of_people_in_party }}</h1>
@@ -21,8 +25,10 @@
         {% endfor %}
         {% if rsvp.accept is not none%}<p>{% if rsvp.accept %}Accepted{% else %}Declined{% endif %}</p>{% endif %}
         {% if rsvp.guest is not none%}<p>Guest name: {{ rsvp.guest.name }}</p>{% endif %}
-        <p>Last seen: {{ rsvp.last_seen }}</p>
-        <p>Last saved: {{ rsvp.last_saved }}</p>
+        {% if rsvp.last_seen is not none%}<p>Last seen: {{ rsvp.last_seen }}</p>{% endif %}
+        {% if rsvp.last_saved is not none%}<p>Last saved: {{ rsvp.last_saved }}</p>{% endif %}
+        {% if rsvp.suggested_songs is not none%}<p>Song suggestions: {{ rsvp.suggested_songs }}</p>
+        {% endif %}{% if rsvp.email_address is not none%}<p>Email address: <a href="mailto:{{ rsvp.email_address }}">{{ rsvp.email_address }}</a></p>{% endif %}
       </div>
     {% endfor %}
   </div>

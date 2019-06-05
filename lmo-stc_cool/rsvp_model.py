@@ -47,6 +47,33 @@ class RSVP(MongoModel):
         return super().save(*args, **kwargs)
 
 
+    @classmethod
+    def num_accepted(cls):
+        return cls.objects.raw({'accept': True}).count()
+
+
+    @classmethod
+    def num_people_accepted(cls):
+
+        def helper():
+
+            accepted_rsvps = cls.objects.raw({'accept': True})
+            for rsvp in accepted_rsvps:
+
+                yield len(rsvp.people)
+
+                if rsvp.guest is not None and rsvp.guest.name is not None:
+                    yield 1
+
+
+        return sum(helper())
+
+
+    @classmethod
+    def num_declined(cls):
+        return cls.objects.raw({'accept': False}).count()
+
+
     @property
     def names_of_people_in_party(self):
 
