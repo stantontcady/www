@@ -47,7 +47,7 @@ def enter_line():
 
     poem_line_query = PoemLine.objects.raw({})
     if poem_line_query.count() > 0:
-        latest_poem_line = poem_line_query.order_by([('datetime_added', -1)]).first().value
+        latest_poem_line = next(poem_line_query.order_by([('datetime_added', -1)]))
 
     else:
         latest_poem_line = None

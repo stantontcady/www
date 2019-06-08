@@ -51,7 +51,7 @@
   <body>
 
     <div id="container">
-      <p id="latest_poem_line" >{% if latest_poem_line is none %} I struggle to write the next line{% else %}{{ latest_poem_line }}{% endif %}</p>
+      <p id="latest_poem_line" >{% if latest_poem_line is none %} I struggle to write the next line{% else %}{{ latest_poem_line.value }}{% endif %}</p>
       <input type="text" id="new_poem_line" />
       <br />
       <button id="submit_button">Save Line</button>
