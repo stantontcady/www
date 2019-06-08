@@ -2,10 +2,10 @@
 from pymodm import fields, MongoModel
 
 
-class PoemLines(MongoModel):
+class PoemLine(MongoModel):
 
     datetime_added = fields.DateTimeField()
-    line = fields.CharField()
+    value = fields.CharField()
 
     class Meta:
         connection_alias = 'poem-generator-connection'
@@ -15,7 +15,7 @@ class PoemLines(MongoModel):
 class Poem(MongoModel):
 
     datetime_created = fields.DateTimeField()
-    ordered_lines = fields.ListField(fields.ReferenceField(PoemLines))
+    ordered_lines = fields.ListField(fields.ReferenceField(PoemLine))
 
     class Meta:
         connection_alias = 'poem-generator-connection'
