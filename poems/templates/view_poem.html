@@ -1,12 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Enter line</title>
+    <title>View Poem</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.typekit.net/kki2lwl.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+      body {
+        background: #A9A9A9;
+        text-align: center;
+      }
+      #container {
+        width: 70%;
+        margin: 75px auto 15px auto;
+      }
+      #container p {
+        font-family: larabiefont, monospace;
+        font-weight: 400;
+        font-style: normal;
+        margin: 0px 0px 0px 10px;
+      }
+    </style>
   </head>
   <body>
 
+    <div id="container">
+    {% if poem is not none %}
+      {% for line in poem.ordered_lines %}
+        <p>{{ line.value }}</p>
+      {% endfor %}
+    {% endif %}
+    </div>
 
   </body>
 </html>

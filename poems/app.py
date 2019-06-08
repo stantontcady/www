@@ -1,5 +1,6 @@
 
 from datetime import datetime
+from random import randint
 
 from flask import Flask, render_template
 from flask_restful import Api as RESTFULApi, Resource, reqparse
@@ -54,12 +55,31 @@ def enter_line():
     return render_template('enter_line.html', latest_poem_line=latest_poem_line)
 
 
-@app.route('/new')
-def generate_and_show_poem():
-    # poem = random_generator
-    # add to Poem collection
-    poem = None
-    return render_template('view_poem.html', poem=poem)
+@app.route('/new/<poem_type>')
+def generate_and_show_poem(poem_type):
+
+    if poem_type == "sonnet":
+
+        poem_line_query = PoemLine.objects.raw({})
+
+        if poem_line_query.count() > 14:
+
+            all_poem_lines = tuple(poem_line_query)
+
+            selected_value_to_poem_line_mapping = {}
+            while len(selected_value_to_poem_line_mapping) < 15:
+                random_line = all_poem_lines[randint(0, poem_line_query.count() -1)]
+                if random_line.value not in selected_value_to_poem_line_mapping:
+                    selected_value_to_poem_line_mapping[random_line.value] = random_line
+
+            new_poem = Poem(
+                ordered_lines=list(selected_value_to_poem_line_mapping.values()), datetime_created=datetime.now()
+            )
+            new_poem.save()
+
+            return render_template('view_poem.html', poem=new_poem)
+
+    return render_template('view_poem.html', poem=None)
 
 
 @app.route('/previous')
