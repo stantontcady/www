@@ -72,35 +72,28 @@
           });  
        };
 
-      $('#new_poem_line').pressEnter(function(){
+       function save_new_poem_line() {
+         if ($('#new_poem_line').val()) {
+           $.ajax({
+             url: '/save_poem_line',
+             type: 'PUT',
+             data: "poem_line=" + $('#new_poem_line').val(),
+             success: function(data) {
+               if (data) {
+                 $('#latest_poem_line').html($('#new_poem_line').val());
+                 $('#new_poem_line').val('');
+               }
+             }
+           });
+         }
+       }
 
-        $.ajax({
-          url: '/save_poem_line',
-          type: 'PUT',
-          data: "poem_line=" + $('#new_poem_line').val(),
-          success: function(data) {
-            if (data) {
-              $('#latest_poem_line').html($('#new_poem_line').val());
-              $('#new_poem_line').val('');
-            }
-          }
-        });
+      $('#new_poem_line').pressEnter(function(){
+        save_new_poem_line();
       });
 
       $('#submit_button').click(function() {
-
-        $.ajax({
-          url: '/save_poem_line',
-          type: 'PUT',
-          data: "poem_line=" + $('#new_poem_line').val(),
-          success: function(data) {
-            if (data) {
-              $('#latest_poem_line').html($('#new_poem_line').val());
-              $('#new_poem_line').val('');
-            }
-          }
-        });
-
+        save_new_poem_line();
       });
 
     </script>
