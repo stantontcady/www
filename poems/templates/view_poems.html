@@ -25,13 +25,13 @@
   </head>
   <body>
 
+  {% for poem in poems %}
     <div id="container">
-    {% if poem is not none %}
-      {% for line in poem.ordered_lines %}
-        <p>{{ line.value }}</p>
-      {% endfor %}
-    {% endif %}
+    {% for line in poem.ordered_lines %}
+      <p>{{ line.value }}</p>
+    {% endfor %}
     </div>
+  {% endfor %}
 
   </body>
 </html>

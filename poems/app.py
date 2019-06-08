@@ -84,6 +84,4 @@ def generate_and_show_poem(poem_type):
 
 @app.route('/previous')
 def show_previous_poem():
-    # get random poem from Poem collection
-    poem = None
-    return render_template('view_poem.html', poem=poem)
+    return render_template('view_poems.html', poems=Poem.objects.raw({}))
