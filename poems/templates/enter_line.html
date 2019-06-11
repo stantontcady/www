@@ -15,7 +15,7 @@
         width: 70%;
         margin: 75px auto 15px auto;
       }
-      #latest_poem_line {
+      p {
         font-family: larabiefont, monospace;
         font-weight: 400;
         font-style: normal;
@@ -51,8 +51,8 @@
   <body>
 
     <div id="container">
-      <p id="latest_poem_line" >{% if latest_poem_line is none %} I struggle to write the next line{% else %}{{ latest_poem_line.value }}{% endif %}</p>
-      <input type="text" id="new_poem_line" />
+      <p>Previous line: <span id="latest_poem_line">{% if latest_poem_line is none %} I struggle to write the next line{% else %}{{ latest_poem_line.value }}{% endif %}</span></p>
+      <input type="text" id="new_poem_line" placeholder="Enter your line" />
       <br />
       <button id="submit_button">Save Line</button>
     </div>
