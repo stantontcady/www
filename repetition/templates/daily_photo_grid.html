@@ -16,10 +16,19 @@
         padding: 10px;
         display: grid;
         grid-gap: 10px;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: 25px repeat(5, 1fr);
       }
       .thumbnail img {
         width: 100%;
+      }
+      .grid-item h1 {
+      }
+      .column-header {
+        text-align: center;
+      }
+      .row-header {
+        text-align: right;
+        vertical-align: middle;
       }
     </style>
   </head>
@@ -27,6 +36,29 @@
 
     <div class="grid-container">
 
+      <div class="grid-item">
+
+      </div>
+      <div class="grid-item">
+        <h1 class="column-header">M</h1>
+      </div>
+      <div class="grid-item">
+        <h1 class="column-header">T</h1>
+      </div>
+      <div class="grid-item">
+        <h1 class="column-header">W</h1>
+      </div>
+      <div class="grid-item">
+        <h1 class="column-header">T</h1>
+      </div>
+      <div class="grid-item">
+        <h1 class="column-header">F</h1>
+      </div>
+
+
+      <div class="grid-item">
+        <h1 class="row-header">1</h1>
+      </div>
       <div class="grid-item">
 
       </div>
@@ -46,6 +78,9 @@
       </div>
 
 
+      <div class="grid-item">
+        <h1 class="row-header">2</h1>
+      </div>
       <div class="grid-item">
 
       </div>
@@ -72,6 +107,9 @@
 
 
       <div class="grid-item">
+        <h1 class="row-header">3</h1>
+      </div>
+      <div class="grid-item">
         <div class="thumbnail">
           <img class="img-responsive" src="{{ url_for('static', filename='img/IMG_3369.jpg') }}" />
         </div>
@@ -96,6 +134,9 @@
       </div>
 
 
+      <div class="grid-item">
+        <h1 class="row-header">4</h1>
+      </div>
       <div class="grid-item">
         <div class="thumbnail">
           <img class="img-responsive" src="{{ url_for('static', filename='img/IMG_3390.jpg') }}" />
@@ -124,6 +165,9 @@
 
 
       <div class="grid-item">
+        <h1 class="row-header">5</h1>
+      </div>
+      <div class="grid-item">
         <div class="thumbnail">
           <img class="img-responsive" src="{{ url_for('static', filename='img/IMG_3421.jpg') }}" />
         </div>
@@ -150,6 +194,9 @@
       </div>
 
 
+      <div class="grid-item">
+        <h1 class="row-header">6</h1>
+      </div>
       <div class="grid-item">
         <div class="thumbnail">
           <img class="img-responsive" src="{{ url_for('static', filename='img/IMG_3439.jpg') }}" />
@@ -178,6 +225,9 @@
 
 
       <div class="grid-item">
+        <h1 class="row-header">7</h1>
+      </div>
+      <div class="grid-item">
         <div class="thumbnail">
           <img class="img-responsive" src="{{ url_for('static', filename='img/IMG_3445.jpg') }}" />
         </div>
@@ -198,6 +248,9 @@
       </div>
 
 
+      <div class="grid-item">
+        <h1 class="row-header">8</h1>
+      </div>
       <div class="grid-item">
         <div class="thumbnail">
           <img class="img-responsive" src="{{ url_for('static', filename='img/IMG_3546.jpg') }}" />
@@ -226,6 +279,9 @@
 
 
       <div class="grid-item">
+        <h1 class="row-header">9</h1>
+      </div>
+      <div class="grid-item">
         <div class="thumbnail">
           <img class="img-responsive" src="{{ url_for('static', filename='img/IMG_3556.jpg') }}" />
         </div>
@@ -252,6 +308,9 @@
       </div>
 
 
+      <div class="grid-item">
+        <h1 class="row-header">10</h1>
+      </div>
       <div class="grid-item">
         <div class="thumbnail">
           <img class="img-responsive" src="{{ url_for('static', filename='img/IMG_3567.jpg') }}" />
