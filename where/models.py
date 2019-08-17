@@ -1,8 +1,11 @@
 
 from collections import deque
+from csv import reader as csv_reader
 from datetime import datetime
+from operator import itemgetter
 from typing import Iterable
 
+from dateutil import parser as date_parser
 from pandas import concat, read_csv, to_datetime
 from pint import UnitRegistry
 from pymodm import EmbeddedMongoModel, fields, MongoModel
@@ -30,7 +33,7 @@ class PythonReverseGeocoding(ReverseGeocoding):
 
     country_code = fields.CharField(verbose_name='Country Code', mongo_name='cc', required=True)
     admin1 = fields.CharField(verbose_name='State/Province', mongo_name='a1', required=True)
-    admin2 = fields.CharField(verbose_name='County/Other', mongo_name='a2', required=True)
+    admin2 = fields.CharField(verbose_name='County/Other', mongo_name='a2', blank=True)
     name = fields.CharField()
 
     datetime = fields.DateTimeField(verbose_name='UTC Time', mongo_name='t', required=True)
@@ -92,6 +95,7 @@ class PythonReverseGeocoding(ReverseGeocoding):
                     country_code=reverse_geocoding['cc'],
                     datetime=datetime_of_reverse_geocoding
                 )
+
                 yield location
 
 
@@ -128,47 +132,69 @@ class CustomLoggerLocation(Location):
 
 
     @classmethod
-    def load(cls, *paths, add_reverse_geocoding=None):
-
-        def create_location_objects(data):
-
-            for row in data.itertuples(index=False):
-                yield cls(
-                    datetime=row.timestamp,
-                    latitude=row.latitude,
-                    longitude=row.longitude,
-                    num_satellites=row.num_satellites,
-                    speed_knots=row.speed,
-                    track_angle_degrees=row.angle
-                )
+    def load(cls, *paths, reverse_geocoding_adder=None, check_existence=True):
 
 
-        def to_dataframe(paths):
+        def cell_getter_factory(header_row, column_name, parser, required_column=False):
 
-            def helper():
-                for path in paths:
+            try:
+                column_index = header_row.index(column_name)
 
-                    dataframe = read_csv(path)
-                    dataframe['timestamp']= to_datetime(dataframe.time)
+            except ValueError as exc:
 
-                    yield dataframe
+                if required_column:
+                    raise ValueError(
+                        f'cannot create cell getter because header line in \'{path}\' does not contain'
+                        f'\'{column_name}\' column'
+                    ) from exc
+
+                else:
+                    return lambda row: None
+
+            return lambda row: parser(itemgetter(column_index)(row))
 
 
-            return concat(helper(), ignore_index=True)
+        def create_location_objects(paths):
+
+            for path in paths:
+
+                with open(path, 'r') as source_file:
+
+                    source_file_csv_reader = csv_reader(source_file)
+
+                    header_row = next(source_file_csv_reader)
+
+                    time_getter = cell_getter_factory(
+                        header_row, 'time', parser=date_parser.parse, required_column=True
+                    )
+                    latitude_getter = cell_getter_factory(header_row, 'latitude',  parser=float, required_column=True)
+                    longitude_getter = cell_getter_factory(header_row, 'longitude', parser=float, required_column=True)
+                    num_satellites_getter = cell_getter_factory(header_row, 'num_satellites', parser=int)
+                    speed_getter = cell_getter_factory(header_row, 'speed', parser=float)
+                    angle_getter = cell_getter_factory(header_row, 'angle', parser=float)
+
+                    for row in source_file_csv_reader:
+
+                        datetime = time_getter(row)
+
+                        # TODO: determine what this will do if there are datapoints from two different devices,
+                        # i.e., classes, that have the same timestamp
+                        if check_existence and cls.objects.raw({'t': datetime}).limit(1).count():
+                            continue
+
+                        yield cls(
+                            datetime=time_getter(row),
+                            latitude=latitude_getter(row),
+                            longitude=longitude_getter(row),
+                            num_satellites=num_satellites_getter(row),
+                            speed_knots=speed_getter(row),
+                            track_angle_degrees=angle_getter(row)
+                        )
 
 
-        add_reverse_geocoding = PythonReverseGeocoding.add_reverse_geocoding or add_reverse_geocoding
+        reverse_geocoding_adder = PythonReverseGeocoding.add_reverse_geocoding or reverse_geocoding_adder
 
-        new_locations = deque(add_reverse_geocoding(create_location_objects(to_dataframe(paths))), maxlen=50000)
+        for location in reverse_geocoding_adder(create_location_objects(paths)):
+            location.save()
 
         from IPython import embed; embed()
-        # for entry, reverse_geocode_result in zip(new_locations, reverse_geocode_locations(*new_locations)):
-        #
-        #     entry.reverse_geocoding = PythonReverseGeocoding(
-        #         country_code=reverse_geocode_result['cc'],
-        #         admin1=reverse_geocode_result['admin1'],
-        #         admin2=reverse_geocode_result['admin2'],
-        #         name=reverse_geocode_result['name']
-        #     )
-        #
-        # cls.objects.bulk_create(new_entries)
