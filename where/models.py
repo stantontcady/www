@@ -1,7 +1,7 @@
 
 from collections import deque
 from csv import reader as csv_reader
-from datetime import datetime
+from datetime import datetime, timedelta
 from operator import itemgetter
 from typing import Iterable
 
@@ -9,6 +9,8 @@ from dateutil import parser as date_parser
 from pandas import concat, read_csv, to_datetime
 from pint import UnitRegistry
 from pymodm import EmbeddedMongoModel, fields, MongoModel
+from pymodm.manager import Manager
+from pymodm.queryset import QuerySet
 from reverse_geocoder import search as reverse_geocode_search
 
 ureg = UnitRegistry()
@@ -44,6 +46,14 @@ class PythonReverseGeocoding(ReverseGeocoding):
     @property
     def country_name(self):
         return self._country_code_to_name_mapping.get(self.country_code, self.country_code)
+
+
+    @classmethod
+    def get_country_code(cls, country_name):
+        country_name_to_country_code_mapping = {
+            country_name: country_code for country_code, country_name in cls._country_code_to_name_mapping.items()
+        }
+        return country_name_to_country_code_mapping[country_name]
 
 
     @classmethod
@@ -99,6 +109,25 @@ class PythonReverseGeocoding(ReverseGeocoding):
                 yield location
 
 
+class LocationQuerySet(QuerySet):
+
+    def by_us_state(self, state_name):
+        return self.raw({'reverse_geocoding.cc': 'US', 'reverse_geocoding.a1': state_name})
+
+
+    def by_country(self, country_name):
+        country_code = PythonReverseGeocoding.get_country_code(country_name)
+        return self.raw({'reverse_geocoding.cc': country_code})
+
+
+    def by_month(self, month_num, year):
+        earliest_datetime = datetime(year, month_num, 1)
+        latest_datetime = datetime(year, month_num + 1, 1)
+        return self.raw({'t': {'$gte': earliest_datetime, '$lt': latest_datetime}})
+
+
+LocationManager = Manager.from_queryset(LocationQuerySet)
+
 class Location(MongoModel):
 
     datetime = fields.DateTimeField(verbose_name='UTC Time', mongo_name='t', required=True)
@@ -107,6 +136,8 @@ class Location(MongoModel):
     longitude = fields.FloatField(required=True, mongo_name='lon')
 
     reverse_geocoding = fields.EmbeddedDocumentField(ReverseGeocoding, blank=True)
+
+    objects = LocationManager()
 
     class Meta:
         connection_alias = 'where-connection'
@@ -119,7 +150,7 @@ class CustomLoggerLocation(Location):
     speed_knots = fields.FloatField(verbose_name='Speed [knots]', blank=True)
     track_angle_degrees = fields.FloatField(verbose_name='Track Angle [deg]', blank=True)
 
-    sample_rate_s = 5
+    sample_rate = 5*ureg.s
 
     @property
     def altitude(self):
@@ -129,6 +160,20 @@ class CustomLoggerLocation(Location):
     @property
     def speed(self):
         return self.speed_knots*ureg.knot
+
+
+    @classmethod
+    def record_coverage_by_month(cls, month_num, year):
+
+        # we need to access the `objects` attribute of the parent class--in this case `Location`
+        time_covered_by_records = Location.objects.by_month(month_num, year).count() * cls.sample_rate
+
+        earliest_datetime = datetime(year, month_num, 1)
+        latest_datetime = datetime(year, month_num + 1, 1) - timedelta(seconds=1)
+
+        time_in_month = (latest_datetime - earliest_datetime).total_seconds() * ureg.s
+
+        return (time_covered_by_records / time_in_month).magnitude * 100
 
 
     @classmethod
