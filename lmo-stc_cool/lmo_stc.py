@@ -255,3 +255,7 @@ def view_rsvps(key):
 
     if key == admin_key:
         return render_template('view_rsvps.html', rsvps=tuple(RSVP.objects.all()), key=key, rsvp_class=RSVP)
+
+@app.route('/acadia')
+def view_acadia_schedule():
+    return render_template('acadia.html')

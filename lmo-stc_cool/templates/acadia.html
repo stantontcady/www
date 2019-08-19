@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>LMO+STC=COOL</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <style>
+    @font-face {
+      font-family: 'NationalParkRegular';
+      src: url('{{ url_for('static', filename='NationalPark-Regular.otf') }}');
+    }
+    @font-face {
+      font-family: 'NationalParkOutline';
+      src: url('{{ url_for('static', filename='NationalPark-Outline.otf') }}');
+    }
+    body {
+      font-family: NationalParkRegular, sans-serif;
+      background: #858b62;
+      color: #000;
+    }
+    p {
+      margin: 0;
+      padding: 0;
+    }
+    #acadia {
+      font-size: 16vmin;
+    }
+    #national_park {
+      font-size: 7.3vmin;
+    }
+    #exploring {
+      font-size: 6vmin;
+      margin: 0 2vmin;
+    }
+    #exploring, #sept, #year {
+      display: inline;
+      vertical-align: middle;
+    }
+    #sept, #year {
+      font-family: NationalParkOutline, sans-serif;
+      font-size: 4vmin;
+    }
+    #title_rect {
+      border-radius: 25px;
+      border: 2px solid #000;
+      margin: 50px auto;
+      padding: 5vmin;
+      text-align: center;
+      background: #bca284;
+      width: 55vmin;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="header">
+    <div id="title_rect">
+      <p id="sept">SEPT</p><p id="exploring">EXPLORING</p><p id="year">2019</p>
+      <p id="acadia">ACADIA</p>
+      <p id="national_park">NATIONAL PARK</p>
+    </div>
+  </div>
+
+</body>
+</html>
