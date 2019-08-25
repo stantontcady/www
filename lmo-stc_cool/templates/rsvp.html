@@ -14,15 +14,18 @@
   body {
     color: #000;
   }
-  #accept_rsvp h1, #accept_rsvp h2 {
+  #accept_rsvp h1, #accept_rsvp h2, #accept_rsvp h3 {
     font-family: Montserrat, sans-serif;
     letter-spacing: 4px;
   }
   #accept_rsvp h1 {
-    font-size: 30px !important;
+    font-size: 45px !important;
   }
   #accept_rsvp h2 {
-    font-size: 22px !important;
+    font-size: 30px !important;
+  }
+  #accept_rsvp h3 {
+    font-size: 26px !important;
   }
   #invite h1 {
     font-family: tilda-petite, sans-serif;
@@ -255,7 +258,7 @@
       <p class="text-center">We recommend making a reservation at the nearby <a href="https://www.thebrooklininn.com/" target="_blank">Brooklin Inn</a> or <a href="https://www.themainehideaway.com/" target="_blank">Maine Hideaway Guest House</a>. There are also some great options on Airbnb and VRBO, particularly for larger groups. One thing to note: while The Lookout lists some of their rooms/cottages on Airbnb, these rooms are already booked for the weekend of September 27-28. Also, regardless of where you stay, please make sure to arrange for transportation to and from The Lookout for the festivities.</p>
       {% endif %}
     </div>
-    <div id="schedule" class="container text-justify">
+    <div id="schedule" class="container text-left">
       <h1 class="text-center">Schedule</h1>
       <div class="row text-center">
         <h2>Friday, September 27</h2>
@@ -265,7 +268,8 @@
           <h2>9:30 am</h2>
         </div>
         <div class="col-xs-9">
-          <p><b>Morning Acadia visit:</b> We plan to meet at Ocean Path trailhead in Acadia National Park at 9:30 am and walk along the shoreline to Otter Point. Next, we’ll stop at Little Hunter’s Beach on the way to Jordan Pond for lunch and scenery and exploring the pond and its environs. We'll then stop by Cadillac Mountain before heading back to Brooklin. You can buy your park pass in advance <a href="https://yourpassnow.com/r1s/site/74271" target="_blank">here</a>.</p>
+          <h3>Acadia Visit</h3>
+          <p>We plan to meet at Ocean Path trailhead in Acadia National Park at 9:30 am and walk along the shoreline to Otter Point. Next, we’ll stop at Little Hunter’s Beach on the way to Jordan Pond for lunch and scenery and exploring the pond and its environs. We'll then stop by Cadillac Mountain before heading back to Brooklin. You can buy your park pass in advance <a href="https://yourpassnow.com/r1s/site/74271" target="_blank">here</a>.</p>
         </div>
       </div>
       {% if rsvp.which_schedule == 'family' %}
@@ -274,7 +278,8 @@
           <h2>5:00 pm</h2>
         </div>
         <div class="col-xs-9">
-          <p><b>Dinner:</b> Join us for pizza dinner and drinks at <a href="https://www.barn-castle.com" target="_blank">Barncastle Restaurant</a> in Blue Hill at 5:00 pm. More details to come soon.</p>
+          <h3>Dinner</h3>
+          <p>Join us for pizza dinner and drinks at <a href="https://www.barn-castle.com" target="_blank">Barncastle Restaurant</a> in Blue Hill at 5:00 pm. More details to come soon.</p>
         </div>
       </div>
       <div class="row">
@@ -282,7 +287,8 @@
           <h2>7:00 pm</h2>
         </div>
         <div class="col-xs-9">
-          <p><b>Bonfire:</b> After dinner, roast some marshmallows with us at a bonfire on The Lookout grounds.</p>
+          <h3>Bonfire</h3>
+          <p>After dinner, roast some marshmallows with us at a bonfire on The Lookout grounds.</p>
         </div>
       </div>
       {% else %}
@@ -291,7 +297,8 @@
           <h2>7:00 pm</h2>
         </div>
         <div class="col-xs-9">
-          <p><b>Bonfire:</b> Come to The Lookout starting at 7:00 pm to roast some marshmallows with us. </p>
+          <h3>Bonfire</h3>
+          <p>Come to The Lookout starting at 7:00 pm to roast some marshmallows with us.</p>
         </div>
       </div>
       {% endif %}
@@ -303,7 +310,8 @@
           <h2>11:00 am</h2>
         </div>
         <div class="col-xs-9">
-          <p><b>Morning walk:</b> There are plenty of beautiful hikes in the Brooklin area. We’re planning to check out the <a href="https://actoutwithaislinn.bangordailynews.com/2012/10/16/one-minute-hikes/1-minute-hike-blue-hill-mountain-blue-hill-maine/" target="_blank">Osgood Trail</a> up Blue Hill Mountain at 11:00 am. 
+          <h3>Morning Walk</h3> 
+          <p>There are plenty of beautiful hikes in the Brooklin area. We’re planning to check out the <a href="https://actoutwithaislinn.bangordailynews.com/2012/10/16/one-minute-hikes/1-minute-hike-blue-hill-mountain-blue-hill-maine/" target="_blank">Osgood Trail</a> up Blue Hill Mountain at 11:00 am.
   </p>
         </div>
       </div>
@@ -312,7 +320,8 @@
           <h2>4:30 pm</h2>
         </div>
         <div class="col-xs-9">
-          <p><b>Ceremony and celebration:</b> We’re tying the knot at 4:30 pm! We’ll have a brief ceremony with our family and closest friends, followed by dinner, drinks, dancing, and lawn games. See you at The Lookout, and be sure to dress for the <a href="https://darksky.net/details/44.2764,-68.5475/2019-9-28/us12/en" target="_blank">weather</a>!
+          <h3>Ceremony and Celebration</h3>
+          <p>We’re tying the knot at 4:30 pm! We’ll have a brief ceremony with our family and closest friends, followed by dinner, drinks, dancing, and lawn games. See you at The Lookout, and be sure to dress for the <a href="https://darksky.net/details/44.2764,-68.5475/2019-9-28/us12/en" target="_blank">weather</a>!
   </p>
         </div>
       </div>
@@ -324,7 +333,8 @@
           <h2>8:00 am</h2>
         </div>
         <div class="col-xs-9">
-          <p><b>Breakfast:</b> We hope to catch you one last time before heading out of town over breakfast at The Lookout. Thank you for much being a part of our wedding! We could not be more grateful.</p>
+          <h3>Breakfast</h3>
+          <p>We hope to catch you one last time before heading out of town over breakfast at The Lookout. Thank you for much being a part of our wedding! We could not be more grateful.</p>
         </div>
       </div>
     </div>
@@ -334,7 +344,7 @@
 
       <p class="text-center">The weather will likely be in the 60s during the ceremony and cool down to the 50s as the evening goes on. There will be heaters in the tent outside, but it’s a good idea to bring a jacket or coat to stay warm! We’ll have dessert and coffee inside the restaurant where you can cozy up and look out over the water. You may also want to bring a change of clothes to sit by the bonfire on Saturday.</p>
     </div>
-    <div class ="container text-justify">
+    <div class ="container text-left">
       <h1 class="text-center">Stuff to Do</h1>
       <div class="row">
         <div class="col-sm-5">
