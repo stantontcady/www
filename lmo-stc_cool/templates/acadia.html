@@ -3,7 +3,7 @@
 <head>
   <title>LMO+STC=COOL</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <style>
     @font-face {
@@ -17,7 +17,9 @@
     body {
       font-family: NationalParkRegular, sans-serif;
       background: #858b62;
-      color: #000;
+      color: #221F20;
+      margin: 0;
+      padding: 0;
     }
     p {
       margin: 0;
@@ -41,26 +43,142 @@
       font-family: NationalParkOutline, sans-serif;
       font-size: 4vmin;
     }
-    #title_rect {
+    .rect {
       border-radius: 25px;
-      border: 2px solid #000;
-      margin: 50px auto;
-      padding: 7vmin;
+      border: 2px solid #221F20;
       text-align: center;
       background: #bca284;
-      width: 55vmin;
+    }
+    #title_rect {
+      margin: 10vmin auto;
+      padding: 7vmin;
+      width: 60vmin;
+    }
+    img {
+      width: 25vmin;
+    }
+    .section {
+      height: 100%;
+      padding: max(10vmin, env(safe-area-inset-left));
+      margin: 0;
+      display: grid;
+      grid-gap: 8vmin;
+      grid-template-columns: 3fr 1fr;
+    }
+    .alt_bg {
+      background: #55593A;
+      grid-template-columns: 1fr 3fr;
+    }
+    #ocean_path_rect {
+      margin: 0 auto;
+      padding: 4vmin 6vmin;
+      width: 32vmin;
+      height: 33vmin;
+    }
+    #ocean_path_rect p {
+      font-size: 5vmin;
+      margin: 0 0 3vmin 0;
+    }
+    #little_hunters_beach_rect {
+      margin: 0 auto;
+      padding: 5vmin 7vmin;
+      width: 40vmin;
+      height: 32vmin;
+      order: 2;
+    }
+    #little_hunters_beach_rect p {
+      font-size: 5vmin;
+      margin: 0 0 3vmin 0;
+    }
+    #jordan_pond_rect {
+      margin: 0 auto;
+      padding: 4vmin 6vmin;
+      width: 32vmin;
+      height: 33vmin;
+    }
+    #jordan_pond_rect p {
+      font-size: 5vmin;
+      margin: 0 0 3vmin 0;
+    }
+    #jordan_pond_rect img {
+      width: 20vmin;
+    }
+    #cadillac_mountain_rect {
+      margin: 0 auto;
+      padding: 5vmin 7vmin;
+      width: 28vmin;
+      height: 28vmin;
+      order: 2;
+    }
+    #cadillac_mountain_rect p {
+      font-size: 5vmin;
+      margin: 0 0 3vmin 0;
+    }
+    .section_description {
+      margin: 0;
+    }
+    .alt_section_description {
+      order: 1;
+    }
+    @media (max-width: 750px) {
+      .section {
+        display: block;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div id="header">
-    <div id="title_rect">
+  <div>
+    <div id="title_rect" class="rect">
       <p id="sept">SEPT</p><p id="exploring">EXPLORING</p><p id="year">2019</p>
       <p id="acadia">ACADIA</p>
       <p id="national_park">NATIONAL PARK</p>
     </div>
   </div>
-
+  <div class="section alt_bg">
+    <div id="ocean_path_rect" class="rect">
+      <p>OCEAN PATH</p>
+      <img src="{{ url_for('static', filename='img/ocean_path_drawing.png') }}" />
+    </div>
+    <div class="section_description">
+      <h2>Arrive 9:30am</h2>
+      <h2>Depart 11:00am</h2>
+      <p>A LEISURELY 2-MILE WALK ALONG A PINK GRANITE SHORELINE WITH SHEER CLIFFS FEATURING GRATUITOUS MOUNTAIN AND FOREST VIEWS</p>
+    </div>
+  </div>
+  <div class="section">
+    <div id="little_hunters_beach_rect" class="rect">
+      <p>LITTLE HUNTER’S BEACH</p>
+      <img src="{{ url_for('static', filename='img/little_hunters_beach_drawing.png') }}" />
+    </div>
+    <div id="little_hunters_beach_description" class="section_description alt_section_description">
+      <h2>Arrive 11:15am</h2>
+      <h2>Depart 11:30am</h2>
+      <p>A LEISURELY 2-MILE WALK ALONG A PINK GRANITE SHORELINE WITH SHEER CLIFFS FEATURING GRATUITOUS MOUNTAIN AND FOREST VIEWS</p>
+    </div>
+  </div>
+  <div class="section alt_bg">
+    <div id="jordan_pond_rect" class="rect">
+      <p>JORDAN POND</p>
+      <img src="{{ url_for('static', filename='img/jordan_pond_drawing.png') }}" />
+    </div>
+    <div class="section_description">
+      <h2>Arrive 11:45am</h2>
+      <h2>Depart 1:15pm</h2>
+      <p>A LEISURELY 2-MILE WALK ALONG A PINK GRANITE SHORELINE WITH SHEER CLIFFS FEATURING GRATUITOUS MOUNTAIN AND FOREST VIEWS</p>
+    </div>
+  </div>
+  <div class="section">
+    <div id="cadillac_mountain_rect" class="rect">
+      <p>CADILLAC MOUNTAIN</p>
+      <img src="{{ url_for('static', filename='img/cadillac_mountain_drawing.png') }}" />
+    </div>
+    <div id="cadillac_mountain_description" class="section_description alt_section_description">
+      <h2>Arrive 1:30pm</h2>
+      <h2>Depart 2:00pm</h2>
+      <p>A LEISURELY 2-MILE WALK ALONG A PINK GRANITE SHORELINE WITH SHEER CLIFFS FEATURING GRATUITOUS MOUNTAIN AND FOREST VIEWS</p>
+    </div>
+  </div>
 </body>
 </html>
