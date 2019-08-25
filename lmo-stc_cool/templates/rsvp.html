@@ -255,7 +255,7 @@
       <p class="text-center">We recommend making a reservation at the nearby <a href="https://www.thebrooklininn.com/" target="_blank">Brooklin Inn</a> or <a href="https://www.themainehideaway.com/" target="_blank">Maine Hideaway Guest House</a>. There are also some great options on Airbnb and VRBO, particularly for larger groups. One thing to note: while The Lookout lists some of their rooms/cottages on Airbnb, these rooms are already booked for the weekend of September 27-28. Also, regardless of where you stay, please make sure to arrange for transportation to and from The Lookout for the festivities.</p>
       {% endif %}
     </div>
-    <div class="container text-justify">
+    <div id="schedule" class="container text-justify">
       <h1 class="text-center">Schedule</h1>
       <div class="row text-center">
         <h2>Friday, September 27</h2>
@@ -361,6 +361,10 @@
 
   <script>
   $(document).ready(function() {
+
+    $('html, body').animate({
+      scrollTop: $('#schedule').offset().top
+    }, 750);
 
     var emailTimeoutId;
     $('#email').on('input', function() {
