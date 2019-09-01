@@ -4,7 +4,7 @@
   <title>LMO+STC=COOL</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Lato|Montserrat" rel="stylesheet" type="text/css">
   <style>
     @font-face {
       font-family: 'NationalParkRegular';
@@ -52,14 +52,14 @@
     #title_rect {
       margin: 10vmin auto;
       padding: 7vmin;
-      width: 60vmin;
+      width: 62vmin;
     }
     img {
       width: 25vmin;
     }
     .section {
       height: 100%;
-      padding: max(10vmin, env(safe-area-inset-left));
+      padding: 10vmin;
       margin: 0;
       display: grid;
       grid-gap: 8vmin;
@@ -68,6 +68,7 @@
     .alt_bg {
       background: #55593A;
       grid-template-columns: 1fr 3fr;
+      color: #000;
     }
     #ocean_path_rect {
       margin: 0 auto;
@@ -117,12 +118,81 @@
     .section_description {
       margin: 0;
     }
+    .section_description h2 {
+      font-family: Montserrat;
+      font-size: 4vmin;
+    }
+    .section_description h2:last-child {
+      margin: 3vmin 0;
+    }
+    .section_description p {
+      font-family: Lato;
+      font-size: 2.5vmin;
+      font-weight: 400;
+      line-height: 3.5vmin;
+    }
+    .section_description p::selection, .section_description p::-moz-selection, {
+      background: #bca284;
+    }
+    .section_description p:not(:last-child) {
+      margin-bottom: 2vmin;
+    }
+    a {
+      color: #bca284;
+    }
+    .section_description a:hover {
+      color: #000;
+    }
+    #acadia_overview a:hover, .alt_section_description a:hover {
+      color: #221F20;
+    }
     .alt_section_description {
       order: 1;
+    }
+    #acadia_overview {
+      padding: 0 10vmin 10vmin 10vmin;
+      margin: 0;
+    }
+    #acadia_overview p {
+      font-family: Lato;
+      font-size: 3vmin;
+      line-height: 4.5vmin;
+    }
+    #acadia_overview p:not(:last-child) {
+      margin-bottom: 2.5vmin;
+    }
+    @supports (-webkit-overflow-scrolling: touch) {
+      .section {
+        padding: max(10vmin, env(safe-area-inset-left));
+      }
     }
     @media (max-width: 750px) {
       .section {
         display: block;
+      }
+      .section_description p {
+        font-size: 4vmin;
+        line-height: 5vmin;
+      }
+      #acadia_overview p {
+        font-size: 4vmin;
+        line-height: 5.5vmin;
+      }
+    }
+    @media screen and (orientation: portrait) {
+      .section {
+        display: block;
+      }
+      .section_description h2 {
+        font-size: 5vmin;
+      }
+      .section_description p {
+        font-size: 4vmin;
+        line-height: 5vmin;
+      }
+      #acadia_overview p {
+        font-size: 4vmin;
+        line-height: 5.5vmin;
       }
     }
   </style>
@@ -135,6 +205,11 @@
       <p id="acadia">ACADIA</p>
       <p id="national_park">NATIONAL PARK</p>
     </div>
+    <div id="acadia_overview">
+      <p>Located primarily on <a href="https://upload.wikimedia.org/wikipedia/commons/1/15/NPS_acadia-map.jpg" target="_blank">Mount Desert Island</a>, <a href="https://www.nps.gov/acad/index.htm" target="_blank">Acadia</a> preserves the best of the Maine’s natural beauties. Throughout the park, you’ll be surrounded by weathered mountains, craggy coastlines, and imposing forests, all within reach from the hiking trails and Park Loop Road. In the sections below, we've outlined the walks and stops we are planning for our Friday morning Acadia excursion.</p>
+      <p>Although our walks won't be too strenuous, remember to wear sturdy, comfortable walking shoes. You should also bring water, your trusty bird guides (if you have them), and a thirst for adventure. Given that our time in the park will be relatively limited, we recommend purchasing your park pass in advance <a href="https://www.recreation.gov/sitepass/74271" target="_blank">here</a>. We’ll see you at 9:30 AM on Friday, September 27 in the Thunder Hole Parking Lot (unless we hear from you otherwise)!</p>
+      <p><i>Note that we've planned this park tour to be easy-going, full of scenery, and accessible for everyone. If you’re interested in something a little more strenuous for your limited time in the park, we suggest the <a href="https://www.mainetrailfinder.com/trails/trail/acadia-national-park-beehive-loophttps://www.mainetrailfinder.com/trails/trail/acadia-national-park-beehive-loop" target="_blank">Beehive Trail</a> as an alternative to the first few stops. It’s steep, includes climbing on iron rungs, and rewards your work with fantastic views of Sand Beach below. You are always welcome to meet up with us at other stops on the itinerary or explore on your own. Just let us know if you plan to meet up with the group.</i></p>
+    </div>
   </div>
   <div class="section alt_bg">
     <div id="ocean_path_rect" class="rect">
@@ -144,7 +219,8 @@
     <div class="section_description">
       <h2>Arrive 9:30am</h2>
       <h2>Depart 11:00am</h2>
-      <p>A LEISURELY 2-MILE WALK ALONG A PINK GRANITE SHORELINE WITH SHEER CLIFFS FEATURING GRATUITOUS MOUNTAIN AND FOREST VIEWS</p>
+      <p>A leisurely 2-mile walk along a pink granite shoreline with sheer cliffs, Ocean Path offers GRATUITOUS mountain and forest views.</p>
+      <p>This is the first stop of the day! We will gather the group in the Thunder Hole parking lot (on the right side of the road), and then cross over to Ocean Path together. We will try to make it to Otter Point (time depending) before turning around to head back to the cars.</p>
     </div>
   </div>
   <div class="section">
@@ -155,7 +231,8 @@
     <div id="little_hunters_beach_description" class="section_description alt_section_description">
       <h2>Arrive 11:15am</h2>
       <h2>Depart 11:30am</h2>
-      <p>A LEISURELY 2-MILE WALK ALONG A PINK GRANITE SHORELINE WITH SHEER CLIFFS FEATURING GRATUITOUS MOUNTAIN AND FOREST VIEWS</p>
+      <p>This secluded pebble beach just past Otter Cliff and Otter Cove is Lenna’s favorite spot in the park.</p>
+      <p>There is no hike or crowds or dominating vista—it’s just a rock beach. We've only planned for 15 minutes, but it should be plenty of time for combing through for temporary treasures, having “rock picnics”, and practicing one’s balance. (The rocks can be exceedingly slippery, so please take caution while exploring to avoid Looney Tunes-esque forever falls!)</p>
     </div>
   </div>
   <div class="section alt_bg">
@@ -166,7 +243,8 @@
     <div class="section_description">
       <h2>Arrive 11:45am</h2>
       <h2>Depart 1:15pm</h2>
-      <p>A LEISURELY 2-MILE WALK ALONG A PINK GRANITE SHORELINE WITH SHEER CLIFFS FEATURING GRATUITOUS MOUNTAIN AND FOREST VIEWS</p>
+      <p>Jordon Pond is a serene, clear body of water surrounded by mountains (look for the Bubbles) and a path made for strolling. There are plenty of frogs, dragonflies, fish, and other friends to see here.</p>
+      <p>We plan to first rest our legs over lunch at the <a href="https://jordanpondhouse.com" target="_blank">Jordan Pond House</a>, which is famous for its popovers and has a fine selection of soups, salads, and sandwiches. After lunch, we can stroll along part of the lake before heading off for the final stop.</p>
     </div>
   </div>
   <div class="section">
@@ -177,7 +255,8 @@
     <div id="cadillac_mountain_description" class="section_description alt_section_description">
       <h2>Arrive 1:30pm</h2>
       <h2>Depart 2:00pm</h2>
-      <p>A LEISURELY 2-MILE WALK ALONG A PINK GRANITE SHORELINE WITH SHEER CLIFFS FEATURING GRATUITOUS MOUNTAIN AND FOREST VIEWS</p>
+      <p>At just over 1500 feet above sea level, the summit of Cadillac Mountain offers swoon-worthy views of the little Porcupine Islands in Frenchman Bay just off of Bar Harbor.</p>
+      <p>At our last stop, we’ll take in the panoramic vistas and pose for some pictures while scrambling over the uniquely patterned granite of the mountain.</p>
     </div>
   </div>
 </body>
