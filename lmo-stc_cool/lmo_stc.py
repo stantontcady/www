@@ -256,6 +256,29 @@ def view_rsvps(key):
     if key == admin_key:
         return render_template('view_rsvps.html', rsvps=tuple(RSVP.objects.all()), key=key, rsvp_class=RSVP)
 
+
+@app.route('/view_rsvps/<key>/<event_name>')
+def view_rsvps_by_event(key, event_name):
+
+    if key == admin_key:
+
+        event_name_to_display_name_mapping = {
+            'friday_hike': 'Friday Acadia Visit',
+            'friday_dinner': 'Friday Dinner at Barncastle Restaurant',
+            'friday_bonfire': 'Friday Bonfire at The Lookout',
+            'saturday_activity': 'Saturday Osgood Trail Hike',
+            'sunday_brunch': 'Sunday Brunch'
+        }
+        return render_template(
+            'view_rsvps.html',
+            rsvps=tuple(RSVP.get_parties_that_accepted_event(event_name)),
+            key=key,
+            rsvp_class=RSVP,
+            event_name=event_name,
+            event_display_name=event_name_to_display_name_mapping[event_name]
+        )
+
+
 @app.route('/acadia')
 def view_acadia_schedule():
     return render_template('acadia.html')

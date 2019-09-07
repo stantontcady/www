@@ -48,17 +48,31 @@ class RSVP(MongoModel):
 
 
     @classmethod
-    def num_accepted(cls):
-        return cls.objects.raw({'accept': True}).count()
+    def get_parties_that_accepted(cls):
+        return cls.objects.raw({'accept': True})
 
 
     @classmethod
-    def num_people_accepted(cls):
+    def get_num_parties_that_accepted(cls):
+        return cls.get_parties_that_accepted().count()
+
+
+    @classmethod
+    def get_parties_that_declined(cls):
+        return cls.objects.raw({'accept': False})
+
+
+    @classmethod
+    def get_num_parties_that_declined(cls):
+        return cls.get_parties_that_declined().count()
+
+
+    @classmethod
+    def get_num_people_in_parties(cls, rsvps):
 
         def helper():
 
-            accepted_rsvps = cls.objects.raw({'accept': True})
-            for rsvp in accepted_rsvps:
+            for rsvp in rsvps:
 
                 yield len(rsvp.people)
 
@@ -70,8 +84,67 @@ class RSVP(MongoModel):
 
 
     @classmethod
-    def num_declined(cls):
-        return cls.objects.raw({'accept': False}).count()
+    def get_parties_that_accepted_event(cls, event_name):
+        return cls.objects.raw({event_name: True})
+
+
+    @classmethod
+    def get_num_parties_that_accepted_event(cls, event_name):
+        return cls.get_parties_that_accepted_event(event_name).count()
+
+
+    @classmethod
+    def get_vegetarian_people(cls):
+
+        def helper():
+
+            for rsvp in cls.objects.raw({'people.dietary_vegetarian': True}):
+                for person in rsvp.people:
+                    if person.dietary_vegetarian:
+                        yield person
+
+            for rsvp in cls.objects.raw({'guest.dietary_vegetarian': True}):
+                if rsvp.guest.dietary_vegetarian:
+                    yield rsvp.guest
+
+
+        return tuple(helper())
+
+
+    @classmethod
+    def get_gluten_free_people(cls):
+
+        def helper():
+
+            for rsvp in cls.objects.raw({'people.dietary_gluten_free': True}):
+                for person in rsvp.people:
+                    if person.dietary_gluten_free:
+                        yield person
+
+            for rsvp in cls.objects.raw({'guest.dietary_gluten_free': True}):
+                if rsvp.guest.dietary_gluten_free:
+                    yield rsvp.guest
+
+
+        return tuple(helper())
+
+
+    @classmethod
+    def get_other_dietary_restrictions_people(cls):
+
+        def helper():
+
+            for rsvp in cls.objects.raw({'people.dietary_other': {"$ne": None}}):
+                for person in rsvp.people:
+                    if person.dietary_other is not None:
+                        yield person, person.dietary_other
+
+            for rsvp in cls.objects.raw({'guest.dietary_other': {"$ne": None}}):
+                if rsvp.guest.dietary_other is not None:
+                    yield rsvp.guest, person.dietary_other
+
+
+        return tuple(helper())
 
 
     @property

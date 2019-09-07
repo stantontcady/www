@@ -14,21 +14,69 @@
 
   <div class="container">
 
-    <h2>Number accepted: {{ rsvp_class.num_accepted() }} ({{ rsvp_class.num_people_accepted() }} People)</h2>
-    <h2>Number declined: {{ rsvp_class.num_declined() }}</h2>
+  {% if event_name is not defined %}
+    <h2>Accepted ({{ rsvp_class.get_num_parties_that_accepted() }} parties [{{ rsvp_class.get_num_people_in_parties(rsvp_class.get_parties_that_accepted()) }} people])</h2>
+    <h2>Declined ({{ rsvp_class.get_num_parties_that_declined() }} parties [{{ rsvp_class.get_num_people_in_parties(rsvp_class.get_parties_that_declined()) }} people])</h2>
+    <h2><a href="/view_rsvps/{{ key }}/friday_hike">Acadia</a> ({{ rsvp_class.get_num_parties_that_accepted_event('friday_hike') }} parties [{{ rsvp_class.get_num_people_in_parties(rsvp_class.get_parties_that_accepted_event('friday_hike')) }} people])</h2>
+    <h2><a href="/view_rsvps/{{ key }}/friday_dinner">Friday dinner</a> ({{ rsvp_class.get_num_parties_that_accepted_event('friday_dinner') }} parties [{{ rsvp_class.get_num_people_in_parties(rsvp_class.get_parties_that_accepted_event('friday_dinner')) }} people])</h2>
+    <h2><a href="/view_rsvps/{{ key }}/friday_bonfire">Friday bonfire</a> ({{ rsvp_class.get_num_parties_that_accepted_event('friday_bonfire') }} parties [{{ rsvp_class.get_num_people_in_parties(rsvp_class.get_parties_that_accepted_event('friday_bonfire')) }} people])</h2>
+    <h2><a href="/view_rsvps/{{ key }}/saturday_activity">Saturday hike</a> ({{ rsvp_class.get_num_parties_that_accepted_event('saturday_activity') }} parties [{{ rsvp_class.get_num_people_in_parties(rsvp_class.get_parties_that_accepted_event('saturday_activity')) }} people])</h2>
+    <h2><a href="/view_rsvps/{{ key }}/sunday_brunch">Sunday brunch</a> ({{ rsvp_class.get_num_parties_that_accepted_event('sunday_brunch') }} parties [{{ rsvp_class.get_num_people_in_parties(rsvp_class.get_parties_that_accepted_event('sunday_brunch')) }} people])</h2>
+    <h2>
+      Vegetarian ({{ rsvp_class.get_vegetarian_people()|length }} people):
+      {% for person in rsvp_class.get_vegetarian_people() %}
+        {% if not loop.last %}
+          {{ person.name }},
+        {% else %}
+          {{ person.name }}
+        {% endif %}
+      {% endfor %}
+    </h2>
+    <h2>
+      Gluten-free ({{ rsvp_class.get_gluten_free_people()|length }} people):
+      {% for person in rsvp_class.get_gluten_free_people() %}
+        {% if not loop.last %}
+          {{ person.name }},
+        {% else %}
+          {{ person.name }}
+        {% endif %}
+      {% endfor %}
+    </h2>
+    <h2>
+      Other dietary restrictions ({{ rsvp_class.get_other_dietary_restrictions_people()|length }} people):
+      {% for person, dietary_restriction in rsvp_class.get_other_dietary_restrictions_people() %}
+        {% if not loop.last %}
+          {{ person.name }}: "{{ dietary_restriction }}",
+        {% else %}
+          {{ person.name }}: "{{ dietary_restriction }}"
+        {% endif %}
+      {% endfor %}
+    </h2>
+  {% else %}
+    <h1>{{ event_display_name }} ({{ rsvp_class.get_num_parties_that_accepted_event(event_name) }} parties [{{ rsvp_class.get_num_people_in_parties(rsvp_class.get_parties_that_accepted_event(event_name)) }} people])</h1>
+  {% endif %}
 
     {% for rsvp in rsvps %}
       <div class="row">
+        {% if event_name is defined %}
+          <a href="/{{ rsvp.url_paths[0] }}?key={{ key }}">
+        {% endif %}
         <h1>{{ rsvp.names_of_people_in_party }}</h1>
-        {% for url_path in rsvp.url_paths %}
-	<p><a href="/{{ url_path }}?key={{ key }}">lmo-stc.cool/{{ url_path }}</a>
-        {% endfor %}
-        {% if rsvp.accept is not none%}<p>{% if rsvp.accept %}Accepted{% else %}Declined{% endif %}</p>{% endif %}
-        {% if rsvp.guest is not none%}<p>Guest name: {{ rsvp.guest.name }}</p>{% endif %}
+        {% if event_name is defined %}
+          </a>
+        {% else %}
+          {% for url_path in rsvp.url_paths %}
+  	<p><a href="/{{ url_path }}?key={{ key }}">lmo-stc.cool/{{ url_path }}</a>
+          {% endfor %}
+          {% if rsvp.accept is not none%}<p>{% if rsvp.accept %}Accepted{% else %}Declined{% endif %}</p>{% endif %}
+          {% if rsvp.guest is not none%}<p>Guest name: {{ rsvp.guest.name }}</p>{% endif %}
+        {% endif %}
         {% if rsvp.last_seen is not none%}<p>Last seen: {{ rsvp.last_seen }}</p>{% endif %}
-        {% if rsvp.last_saved is not none%}<p>Last saved: {{ rsvp.last_saved }}</p>{% endif %}
-        {% if rsvp.suggested_songs is not none%}<p>Song suggestions: {{ rsvp.suggested_songs }}</p>
-        {% endif %}{% if rsvp.email_address is not none%}<p>Email address: <a href="mailto:{{ rsvp.email_address }}">{{ rsvp.email_address }}</a></p>{% endif %}
+        {% if event_name is not defined %}
+          {% if rsvp.last_saved is not none%}<p>Last saved: {{ rsvp.last_saved }}</p>{% endif %}
+          {% if rsvp.suggested_songs is not none%}<p>Song suggestions: {{ rsvp.suggested_songs }}</p>
+          {% endif %}{% if rsvp.email_address is not none%}<p>Email address: <a href="mailto:{{ rsvp.email_address }}">{{ rsvp.email_address }}</a></p>{% endif %}
+        {% endif %}
       </div>
     {% endfor %}
   </div>
