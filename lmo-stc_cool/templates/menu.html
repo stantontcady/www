@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>LMO+STC Reception Menu</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link href="https://use.typekit.net/tih7ugf.css?v1" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato|Montserrat" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+  body {
+    color: #000;
+  }
+  #main h1 {
+    font-family: tilda-petite, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2.5em;
+  }
+  #main p {
+    font-family: mrs-eaves-roman-petite-caps, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.75em;
+  }
+  #main img {
+    width: 275px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+  #main {
+    margin: 20px auto;
+    width: 650px;
+  }
+  #main {
+    border: 1px solid #000;
+    padding: 10px 50px;
+  }
+
+  @media only screen and (max-width: 570px) {
+    #main img {
+      width: 45%;
+    }
+    h1 {
+      font-size: 1.2em;
+    }
+    p {
+      font-size: 1em;
+    }
+  }
+  </style>
+</head>
+<body>
+
+  <div id="main" class="container text-center">
+    <img class="img-responsive center-block" src="{{ url_for('static', filename='img/menu_drawing2.png') }}" />
+    <h1 style="">Appetizers</h1>
+    <p>Vegetable Crudités</p>
+    <p>Imported Cheese and Cracker Board</p>
+    <h1 style="">Buffet</h1>
+    <p>Cranberry, Apple, and Walnut Salad</p>
+    <p>Grilled Potato Salad with Lemon Vinaigrette</p>
+    <p>Maine Lobster Rolls</p>
+    <p>BBQ Chicken Breast</p>
+    <p>Hot Dogs</p>
+    <p>Vegetarian Lasagna</p>
+    <h1 style="">Dessert</h1>
+    <p>Coffee</p>
+    <p>Chocolate 1</p>
+    <p>Chocolate 2</p>
+    <p>Blueberry pie with vanilla ice cream</p>
+  </div>
+
+</body>
+</html>

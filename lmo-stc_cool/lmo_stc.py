@@ -282,3 +282,8 @@ def view_rsvps_by_event(key, event_name):
 @app.route('/acadia')
 def view_acadia_schedule():
     return render_template('acadia.html')
+
+
+@app.route('/menu')
+def view_menu():
+    return render_template('menu.html')
