@@ -287,3 +287,15 @@ def view_acadia_schedule():
 @app.route('/menu')
 def view_menu():
     return render_template('menu.html')
+
+
+@app.route('/favors/<rsvp_url_path>')
+def view_party_favors(rsvp_url_path):
+
+    rsvp = get_rsvp_from_url_path(rsvp_url_path.casefold())
+
+    if rsvp is not None:
+        state_o_maine_image_path = f'img/state_o_maine_pages/{rsvp.url_paths[0]}.png'
+        return render_template('party_favors.html', rsvp=rsvp, state_o_maine_image_path=state_o_maine_image_path)
+
+    return render_template('error.html', rsvp_url_path=rsvp_url_path)

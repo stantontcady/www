@@ -553,52 +553,6 @@
 
     });
 
-    // window.onhashchange = function(event) {
-    //
-    //   event.preventDefault();
-    //
-    //   if (window.location.hash == "#accept_rsvp") {
-    //
-    //     $.ajax({
-    //       url: '/update_bool_field/{{ rsvp._id }}',
-    //       type: 'PUT',
-    //       data: "key=accept&value=1",
-    //       success: function(data) {
-    //         $('#last_saved_time').html(data.last_saved);
-    //       }
-    //     });
-    //
-    //     $('#accept_rsvp').css('min-height', $('#invite').outerHeight() + 'px');
-    //     $('#accept_rsvp').show();
-    //     $('html, body').animate({
-    //       scrollTop: $('#accept_rsvp').offset().top
-    //     }, 750);
-    //
-    //   } else if (window.location.hash == "") {
-    //
-    //     $('html, body').animate({
-    //       scrollTop: $('#invite').offset().top
-    //     }, 750);
-    //     $('#accept_rsvp').hide();
-    //
-    //   } else if (window.location.hash == "#decline_rsvp") {
-    //
-    //     $.ajax({
-    //       url: '/update_bool_field/{{ rsvp._id }}',
-    //       type: 'PUT',
-    //       data: "key=accept&value=0",
-    //       success: function(data) {
-    //         $('#last_saved_time').html(data.last_saved);
-    //       }
-    //     });
-    //
-    //   } else {
-    //     console.log(window.location.hash);
-    //   }
-    // }
-
-    // Add smooth scrolling to all links in navbar + footer link
-
   })
   </script>
 

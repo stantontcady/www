@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>About Our Party Favors</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato|Montserrat" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+    body {
+      color: #000;
+    }
+    h1, h2 {
+      font-family: Montserrat, sans-serif;
+      letter-spacing: 4px;
+    }
+    h1 {
+      font-size: 45px !important;
+    }
+    h2 {
+      font-size: 40px !important;
+    }
+    p {
+      font: 400 20px/1.8 Lato, sans-serif;
+    }
+    .caption p {
+      font: 400 16px/1.8 Lato, sans-serif;
+    }
+    #lighthouse_drawing {
+      width: 50%;
+    }
+    #lookout_drawing {
+      width: 65%;
+    }
+    @media only screen and (min-width: 750px) {
+      #potholder_pieces {
+        width: 86%;
+      }
+      #acadia_sticker_on_bottle {
+        width: 95%;
+      }
+      #lighthouse_drawing {
+        width: 34%;
+      }
+      #state_o_maine_page {
+        width: 97%;
+      }
+      #lookout_drawing {
+        width: 73%;
+      }
+      #kissing_tree_drawing {
+        width: 73%;
+      }
+      #weighing_out_chocolates {
+        width: 79%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container text-center">
+    <div class="container">
+      <h1>Party Favors</h1>
+      <p>Below are some details and "behind-the-scenes" of our party favors</p>
+    </div>
+    <div class="container">
+      <h2>Tea Towel</h2>
+      <p>Inspired by <a target="_blank" href="http://docs.unh.edu/nhtopos/BlueHill.htm">1904 USGS Blue Hill, ME, Quadrangle</a>; drawn by Lenna on the iPad; printed by <a target="_blank" href="https://www.floursacktowels.com">Mary's Kitchen Flour Sack Towels</a></p>
+      <div class="row">
+        <div class="col-xs-6">
+          <img class="img-responsive center-block" src="{{ url_for('static', filename='img/tea_towel_map_source.jpg') }}" />
+          <div class="caption text-center">
+            <p>Part of the source map</p>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <img style="width: 93%;" class="img-responsive center-block" src="{{ url_for('static', filename='img/tea_towel_map_drawing.png') }}" />
+          <div class="caption text-center">
+            <p>The final map drawing</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <h2>Lighthouse Name Tag</h2>
+      <p>Inspired by lighthouses throughout New England and beyond; drawn by Lenna on the iPad; painted by Lenna</p>
+      <div class="row">
+        <div class="col-sm-6">
+          <img id="lighthouse_drawing" class="img-responsive center-block" src="{{ url_for('static', filename='img/lighthouse_drawing.png') }}" />
+          <div class="caption text-center">
+            <p>Drawing of the lighthouse shape</p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <img class="img-responsive center-block" src="{{ url_for('static', filename='img/lighthouses_raw.png') }}" />
+          <div class="caption text-center">
+            <p>A stack of unpainted lighthouses</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <img class="img-responsive center-block" src="{{ url_for('static', filename='img/lighthouses_painting.png') }}" />
+          <div class="caption text-center">
+            <p>Lenna painting a lighthouse</p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <img class="img-responsive center-block" src="{{ url_for('static', filename='img/lighthouses_drying.png') }}" />
+          <div class="caption text-center">
+            <p>Freshly painted lighthouses drying</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <h2>Card Photo</h2>
+      <p>Snipped from the 1940 book `The State O' Maine Scrap Book | Early Stories and Legends of "Way Down East"' by Ernest E. Bisbee</p>
+      <div class="row">
+        <div class="col-sm-6">
+          <img class="img-responsive center-block" src="{{ url_for('static', filename='img/state_o_maine_scrap_book_front_cover.png') }}" />
+          <div class="caption text-center">
+            <p>A scan of the book's front cover</p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <img id="state_o_maine_page" class="img-responsive center-block" src="{{ url_for('static', filename=state_o_maine_image_path) }}" />
+          <div class="caption text-center">
+            <p>A scan of the page from which the picture on your card came</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <img class="img-responsive center-block" src="{{ url_for('static', filename='img/state_o_maine_cutting.png') }}" />
+          <div class="caption text-center">
+            <p>Lenna cutting photos from the book</p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <img class="img-responsive center-block" src="{{ url_for('static', filename='img/state_o_maine_scanning.png') }}" />
+          <div class="caption text-center">
+            <p>Scanning those old pages</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <h2>Coffee Beans</h2>
+      <p>Recently roasted beans from <a target="_blank" href="https://www.broadsheetcoffee.com">Broadsheet Coffee Roasters</a> in Cambridge, MA—a local favorite of Stanton and Lenna; The Lookout Inn drawn by Lenna on the iPad made into a custom stamp (this is the same image used for the invitation)</p>
+      <div class="row">
+        <div class="col-sm-6">
+          <img id="lookout_drawing" class="img-responsive center-block" src="{{ url_for('static', filename='img/lookout_drawing.png') }}" />
+          <div class="caption text-center">
+            <p>The Lookout Inn drawing</p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <img class="img-responsive center-block" src="{{ url_for('static', filename='img/coffee_bag_stamping.png') }}" />
+          <div class="caption text-center">
+            <p>Stanton stamping some sachets</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <img class="img-responsive center-block" src="{{ url_for('static', filename='img/coffee_bags_drying.png') }}" />
+          <div class="caption text-center">
+            <p>A bunch of bags drying after getting stamped</p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <img class="img-responsive center-block" src="{{ url_for('static', filename='img/coffee_bags_drying.png') }}" />
+          <div class="caption text-center">
+            <p>Stanton filling bags with beans</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <h2>Chocolates</h2>
+      <p>Chocolate treats from <a target="_blank" href="http://www.wilburbuds.com/mixbudslb?sc=32&category=87414">Wilbur Chocolate</a> in Lititz, PA—an Ostrodka family favorite; the "Kissing Tree" drawn by Lenna on the iPad made into a custom stamp (this is the same image used for the RSVP card)</p>
+      <div class="row">
+        <div class="col-sm-6">
+          <img id="kissing_tree_drawing" class="img-responsive center-block" src="{{ url_for('static', filename='img/kissing_tree_drawing.png') }}" />
+          <div class="caption text-center">
+            <p>Drawing of the "Kissing Tree"</p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <img class="img-responsive center-block" src="{{ url_for('static', filename='img/kissing_tree_stamp.png') }}" />
+          <div class="caption text-center">
+            <p>Kissing Tree stamp</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <img class="img-responsive center-block" src="{{ url_for('static', filename='img/chocolate_boxes.png') }}" />
+          <div class="caption text-center">
+            <p>Some chocolate boxes drying after being stamped</p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <img id="weighing_out_chocolates" class="img-responsive center-block" src="{{ url_for('static', filename='img/weighing_out_chocolates.png') }}" />
+          <div class="caption text-center">
+            <p>Stanton precisely weighing 5oz of chocolates for each box</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <h2>Acadia Stickers</h2>
+      <p>Inspired by / made use of font available at <a target="_blank" href="https://nationalparktypeface.com">National Park Type Face</a>; the Bass Harbor Head Light drawn by Lenna on the iPad; final design made in Photoshop; printed by <a href="https://www.stickermule.com" target="_blank">Sticker Mule</a></p>
+      <div class="row">
+        <div class="col-sm-3">
+          <img class="img-responsive center-block" src="{{ url_for('static', filename='img/bass_harbor_light_drawing.png') }}" />
+          <div class="caption text-center">
+            <p>Drawing of the Bass Harbor Head Light</p>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <img class="img-responsive center-block" src="{{ url_for('static', filename='img/acadia_sticker_proof.png') }}" />
+          <div class="caption text-center">
+            <p>Final sticker design</p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <img id="acadia_sticker_on_bottle" class="img-responsive center-block" src="{{ url_for('static', filename='img/acadia_sticker_on_bottle.png') }}" />
+          <div class="caption text-center">
+            <p>Acadia sticker on Stanton's Klean Kanteen; Chessie in awe in the background</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <h2>Pot Holders</h2>
+      <p>"Tight Nups" phrase inspired by <a target="_blank" href="https://twitter.com/nbcbrooklyn99/status/930812645988372485?lang=en">Brooklyn Nine-Nine</a>; pot holders made by Lenna to reflect her love for baking and sewing</p>
+      <div class="row">
+        <div class="col-sm-8">
+          <img id="potholder_pieces" class="img-responsive center-block" src="{{ url_for('static', filename='img/potholder_pieces.png') }}" />
+          <div class="caption text-center">
+            <p>Lenna pinning potholder components</p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <img class="img-responsive center-block" src="{{ url_for('static', filename='img/potholders_sewn.png') }}" />
+          <div class="caption text-center">
+            <p>Sewing a potholder together, with a generous assist from Pippi</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
