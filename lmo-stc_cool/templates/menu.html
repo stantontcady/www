@@ -18,22 +18,23 @@
     font-family: tilda-petite, sans-serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 2.5em;
+    font-size: 7vmin;
+    margin: 4vmin 0 1vmin 0;
   }
   #main p {
     font-family: mrs-eaves-roman-petite-caps, sans-serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 1.75em;
+    font-size: 5vmin;
+    margin: 0 0 2vmin 0;
   }
   #main img {
-    width: 275px;
+    width: 50vmin;
     margin-top: 25px;
     margin-bottom: 25px;
   }
   #main {
-    margin: 20px auto;
-    width: 650px;
+    margin: 20px;
   }
   #main {
     border: 1px solid #000;
@@ -41,9 +42,6 @@
   }
 
   @media only screen and (max-width: 570px) {
-    #main img {
-      width: 45%;
-    }
     h1 {
       font-size: 1.2em;
     }
@@ -55,19 +53,19 @@
 </head>
 <body>
 
-  <div id="main" class="container text-center">
+  <div id="main" class="text-center">
     <img class="img-responsive center-block" src="{{ url_for('static', filename='img/menu_drawing2.png') }}" />
-    <h1 style="">Appetizers</h1>
+    <h1>Appetizers</h1>
     <p>Vegetable Crudités</p>
     <p>Imported Cheese and Cracker Board</p>
-    <h1 style="">Buffet</h1>
+    <h1>Buffet</h1>
     <p>Cranberry, Apple, and Walnut Salad</p>
     <p>Grilled Potato Salad with Lemon Vinaigrette</p>
     <p>Maine Lobster Rolls</p>
     <p>BBQ Chicken Breast</p>
     <p>Hot Dogs</p>
-    <p>Vegetarian Lasagna</p>
-    <h1 style="">Dessert</h1>
+    <p>Vegetarian Burgers</p>
+    <h1>Dessert</h1>
     <p>Coffee</p>
     <p>Guinness Chocolate Cake</p>
     <p>Chocolate Truffle Cake</p>
