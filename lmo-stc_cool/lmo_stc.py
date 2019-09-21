@@ -1,5 +1,7 @@
 
 from datetime import datetime
+from operator import ge
+from pytz import timezone
 
 from bson.objectid import ObjectId
 from flask import Flask, render_template, request
@@ -30,6 +32,9 @@ parser.add_argument('dietary_name')
 parser.add_argument('email_address')
 parser.add_argument('suggested_songs')
 parser.add_argument('guest_name')
+parser.add_argument('which_brunch')
+
+eastern_timezone = timezone('US/Eastern')
 
 
 class GetRSVPMixin:
@@ -202,12 +207,31 @@ class UpdateDietaryOther(GetRSVPMixin, Resource):
         return False
 
 
+class UpdateSundayBrunch(GetRSVPMixin, Resource):
+
+    def put(self, rsvp_id):
+
+        rsvp = self._get_rsvp(rsvp_id)
+
+        if rsvp is not None:
+
+            args = parser.parse_args()
+
+            rsvp.which_brunch = args['which_brunch']
+            rsvp.save()
+
+            return True
+
+        return False
+
+
 restful_api.add_resource(UpdateBoolField, '/update_bool_field/<rsvp_id>')
 restful_api.add_resource(UpdateDietaryRestrictions, '/update_dietary_restrictions/<rsvp_id>')
 restful_api.add_resource(UpdateEmailAddress, '/update_email_address/<rsvp_id>')
 restful_api.add_resource(UpdateSuggestedSongs, '/update_suggested_songs/<rsvp_id>')
 restful_api.add_resource(UpdateGuestName, '/update_guest_name/<rsvp_id>')
 restful_api.add_resource(UpdateDietaryOther, '/update_dietary_other/<rsvp_id>')
+restful_api.add_resource(UpdateSundayBrunch, '/update_sunday_brunch/<rsvp_id>')
 
 
 def get_rsvp_from_url_path(rsvp_url_path):
@@ -244,7 +268,18 @@ def rsvp(rsvp_url_path):
             rsvp.last_seen = datetime.now()
             rsvp.save()
 
-        return render_template('rsvp.html', rsvp=rsvp)
+        return render_template(
+            'rsvp.html',
+            rsvp=rsvp,
+            show_favors_link=ge(
+                datetime.now(eastern_timezone), datetime(2019, 9, 29, 7, 30, 0, tzinfo=eastern_timezone)
+            ),
+            ceremony_rehearsal=set(
+                rsvp.url_paths
+            ).intersection(
+                ('milano', 'slo&smello', 'chiefmoyofficer', 'steve&beth', 'steph&josh')
+            )
+        )
 
     else:
         return render_template('error.html', rsvp_url_path=rsvp_url_path)
@@ -297,5 +332,37 @@ def view_party_favors(rsvp_url_path):
     if rsvp is not None:
         state_o_maine_image_path = f'img/state_o_maine_pages/{rsvp.url_paths[0]}.png'
         return render_template('party_favors.html', rsvp=rsvp, state_o_maine_image_path=state_o_maine_image_path)
+
+    return render_template('error.html', rsvp_url_path=rsvp_url_path)
+
+
+@app.route('/sunday_breakfast/<rsvp_url_path>')
+def view_sunday_breakfast(rsvp_url_path):
+
+    rsvp = get_rsvp_from_url_path(rsvp_url_path.casefold())
+
+    if rsvp is not None:
+
+        other_rsvps_in_first_time_slot = list(RSVP.objects.raw({'which_brunch': 'first'}))
+
+        try:
+            other_rsvps_in_first_time_slot.remove(rsvp)
+        except ValueError:
+            pass
+
+        other_rsvps_in_second_time_slot = list(RSVP.objects.raw({'which_brunch': 'second'}))
+
+        try:
+            other_rsvps_in_second_time_slot.remove(rsvp)
+        except ValueError:
+            pass
+
+        return render_template(
+            'sunday_breakfast.html',
+            rsvp=rsvp,
+            other_rsvps_in_first_time_slot=other_rsvps_in_first_time_slot,
+            other_rsvps_in_second_time_slot=other_rsvps_in_second_time_slot,
+            max_people_per_time_slot=26
+        )
 
     return render_template('error.html', rsvp_url_path=rsvp_url_path)

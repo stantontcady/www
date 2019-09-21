@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>LMO+STC Sunday Breakfast Scheduler</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato|Montserrat" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+  body {
+    color: #000;
+  }
+  h1, h2 {
+    font-family: Montserrat, sans-serif;
+    letter-spacing: 0.5vmin;
+  }
+  h1 {
+    font-size: 7vmin !important;
+  }
+  h2 {
+    font-size: 6vmin !important;
+  }
+  p {
+    font: 400 4vmin/1.8 Lato, sans-serif;
+  }
+  #main {
+    margin: 10vmin;
+  }
+  img {
+    width: 42vmin;
+    margin: 8vmin auto 10vmin auto;
+  }
+  a {
+    cursor: pointer;
+  }
+  </style>
+</head>
+<body>
+
+  <div id="main" class="text-center">
+
+    <img class="img-responsive center-block" src="{{ url_for('static', filename='img/brunch_drawing.png') }}" />
+
+    <h1>Hey, {{ rsvp.names_of_people_in_party }}!</h1>
+    <p>Please choose one of the two time slots below for breakfast on Sunday, September 29th</p>
+
+      <div class="row">
+        <div class="col-xs-6">
+          <h2>7:30 am</h2>
+          <div class="row">
+            <p>
+            <span {% if rsvp.which_brunch != 'first' %}style="display: none;"{% endif %} id="first">You!</span>
+            {% if rsvp.get_num_people_in_parties(other_rsvps_in_first_time_slot) + rsvp.num_people_in_party <= max_people_per_time_slot %}
+              <a {% if rsvp.which_brunch == 'first' %}style="display: none;"{% endif %} id="select_first">
+              {% if rsvp.which_brunch == 'second' %}
+                Change to this time slot
+              {% else %}
+                {% if not other_rsvps_in_first_time_slot %}
+                  Be the first to select this time slot
+                {% else %}
+                  Select this time slot
+                {% endif %}
+              {% endif %}
+              </a>
+            {% else %}
+              (Sorry, this time slot is full!)
+            {% endif %}
+            </p>
+          </div>
+          {% for other_rsvp in other_rsvps_in_first_time_slot %}
+            <div class="row"><p>{{ other_rsvp.names_of_people_in_party }}</p></div>
+          {% endfor %}
+        </div>
+        <div class="col-xs-6">
+          <h2>8:30 am</h2>
+          <div class="row">
+            <p>
+            <span {% if rsvp.which_brunch != 'second' %}style="display: none;"{% endif %} id="second">You!</span>
+            {% if rsvp.get_num_people_in_parties(other_rsvps_in_second_time_slot) + rsvp.num_people_in_party <= max_people_per_time_slot %}
+              <a {% if rsvp.which_brunch == 'second' %}style="display: none;"{% endif %} id="select_second">
+              {% if rsvp.which_brunch == 'first' %}
+                Change to this time slot
+              {% else %}
+                {% if not other_rsvps_in_second_time_slot %}
+                  Be the first to select this time slot
+                {% else %}
+                  Select this time slot
+                {% endif %}
+              {% endif %}
+              </a>
+            {% else %}
+              (Sorry, this time slot is full!)
+            {% endif %}
+            </p>
+          </div>
+          {% for other_rsvp in other_rsvps_in_second_time_slot %}
+            <div class="row"><p>{{ other_rsvp.names_of_people_in_party }}</p></div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+  $(document).ready(function() {
+
+    $('#select_first').click(function() {
+
+      $.ajax({
+        url: '/update_sunday_brunch/{{ rsvp._id }}',
+        type: 'PUT',
+        data: 'which_brunch=first',
+        success: function(data) {
+          $('#first').show();
+          $('#select_first').hide();
+          $('#second').hide();
+          $('#select_second').show();
+          if($('#select_second').text().includes('first')) {
+            $('#select_second').text('Change to this time slot');
+          }
+        }
+      });
+
+    });
+
+    $('#select_second').click(function() {
+
+      $.ajax({
+        url: '/update_sunday_brunch/{{ rsvp._id }}',
+        type: 'PUT',
+        data: 'which_brunch=second',
+        success: function(data) {
+          $('#first').hide();
+          $('#select_first').show();
+          $('#second').show();
+          $('#select_second').hide();
+          if($('#select_first').text().includes('first')) {
+            $('#select_first').text('Change to this time slot');
+          }
+        }
+      });
+
+    });
+
+  })
+  </script>
+</body>
+</html>

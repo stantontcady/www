@@ -35,6 +35,8 @@ class RSVP(MongoModel):
     saturday_activity = fields.BooleanField(default=False)
     sunday_brunch = fields.BooleanField(default=False)
 
+    which_brunch = fields.CharField(blank=True)
+
     suggested_songs = fields.CharField(mongo_name='songs', blank=True)
 
     class Meta:
@@ -69,19 +71,10 @@ class RSVP(MongoModel):
 
     @classmethod
     def get_num_people_in_parties(cls, rsvps):
-
-        def helper():
-
-            for rsvp in rsvps:
-
-                yield len(rsvp.people)
-
-                if rsvp.guest is not None and rsvp.guest.name is not None:
-                    yield 1
+        return sum(rsvp.num_people_in_party for rsvp in rsvps)
 
 
-        return sum(helper())
-
+    
 
     @classmethod
     def get_parties_that_accepted_event(cls, event_name):
@@ -169,6 +162,17 @@ class RSVP(MongoModel):
 
         else:
             return ', '.join(names[:-1]) + ', and ' + names[-1]
+
+
+    @property
+    def num_people_in_party(self):
+
+        num_people = len(self.people)
+
+        if self.guest is not None and self.guest.name is not None:
+            num_people += 1
+
+        return num_people
 
 
     @property

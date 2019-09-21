@@ -99,9 +99,6 @@
     #invite img {
       width: 45%;
     }
-    h1 {
-      font-size: 1.2em;
-    }
     p {
       font-size: 1em;
     }
@@ -111,6 +108,17 @@
     }
     #left_button, #right_button {
       font-size: 1.5em;
+    }
+  }
+  @media only screen and (max-width: 425px) {
+    #accept_rsvp h1 {
+      font-size: 7.5vmin !important;
+    }
+    #accept_rsvp h2 {
+      font-size: 6vmin !important;
+    }
+    #accept_rsvp h3 {
+      font-size: 5.5vmin !important;
     }
   }
   </style>
@@ -260,89 +268,148 @@
     </div>
     <div id="schedule" class="container text-left">
       <h1 class="text-center">Schedule</h1>
-      <div class="row text-center">
-        <h2>Friday, September 27</h2>
-      </div>
-      <div class="row">
-        <div class="col-xs-3 text-center">
-          <h2>9:30 am</h2>
+      {% if rsvp.friday_hike or rsvp.friday_dinner or rsvp.friday_bonfire %}
+        <div class="row text-center">
+          <h2>Friday, September 27</h2>
         </div>
-        <div class="col-xs-9">
-          <h3>Acadia Visit</h3>
-          <p>We plan to meet at the Thunder Hole parking lot in Acadia National Park at 9:30 am and continue from there. Please review the detailed schedule available <a href="/acadia">here</a>.</p>
+        {% if rsvp.friday_hike %}
+        <div class="row">
+          <div class="col-xs-3 text-center">
+            <h2>9:30 am</h2>
+          </div>
+          <div class="col-xs-9">
+            <h3>Acadia Visit</h3>
+            <p>We plan to meet at the Thunder Hole parking lot in Acadia National Park at 9:30 am and continue from there. A detailed schedule is available <a href="/acadia">here</a>. If possible, please <a href="https://www.recreation.gov/sitepass/74271" target="_blank">purchase</a> your park pass in advance (one $30 pass is needed per vehicle; parking may be limited so consider coordinating with another group to carpool).</p>
+          </div>
         </div>
-      </div>
-      {% if rsvp.which_schedule == 'family' %}
-      <div class="row">
-        <div class="col-xs-3 text-center">
-          <h2>5:00 pm</h2>
+        {% endif %}
+        {% if rsvp.friday_dinner %}
+        <div class="row">
+          <div class="col-xs-3 text-center">
+            <h2>5:00 pm</h2>
+          </div>
+          <div class="col-xs-9">
+            <h3>Dinner</h3>
+            <p>Join us for pizza dinner and drinks at <a href="https://www.barn-castle.com" target="_blank">Barncastle Restaurant</a> in Blue Hill at 5:00 pm. Directions from The Lookout available <a href="https://goo.gl/maps/JW5w66FAEFmCH4s9A" target="_blank">here</a>.</p>
+          </div>
         </div>
-        <div class="col-xs-9">
-          <h3>Dinner</h3>
-          <p>Join us for pizza dinner and drinks at <a href="https://www.barn-castle.com" target="_blank">Barncastle Restaurant</a> in Blue Hill at 5:00 pm. More details to come soon.</p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-3 text-center">
-          <h2>7:00 pm</h2>
-        </div>
-        <div class="col-xs-9">
-          <h3>Bonfire</h3>
-          <p>After dinner, roast some marshmallows with us at a bonfire on The Lookout grounds.</p>
-        </div>
-      </div>
-      {% else %}
-      <div class="row">
-        <div class="col-xs-3 text-center">
-          <h2>7:00 pm</h2>
-        </div>
-        <div class="col-xs-9">
-          <h3>Bonfire</h3>
-          <p>Come to The Lookout starting at 7:00 pm to roast some marshmallows with us.</p>
-        </div>
-      </div>
+        {% endif %}
+        {% if rsvp.friday_bonfire %}
+          {% if rsvp.which_schedule == 'family' %}
+            <div class="row">
+              <div class="col-xs-3 text-center">
+                <h2>7:00 pm</h2>
+              </div>
+              <div class="col-xs-9">
+                <h3>Bonfire</h3>
+                <p>After dinner, roast some marshmallows with us at a bonfire on The Lookout grounds. Dress for the <a href="https://darksky.net/details/44.2764,-68.5475/2019-9-27/us12/en" target="_blank">weather</a> as it may get chilly. This is a great time to pick up your {% if show_favors_link %} <a href="/favors/{{ rsvp.url_paths[0] }}">favor bag</a> {% else %} favor bag {% endif %} from inside the Inn.</p>
+              </div>
+            </div>
+          {% else %}
+            <div class="row">
+              <div class="col-xs-3 text-center">
+                <h2>7:00 pm</h2>
+              </div>
+              <div class="col-xs-9">
+                <h3>Bonfire</h3>
+                <p>Come to <a href="https://goo.gl/maps/d3K2tZWxvEytvqNaA" target="_blank">The Lookout</a> starting at 7:00 pm to roast some marshmallows with us. Dress for the<a href="https://darksky.net/details/44.2764,-68.5475/2019-9-27/us12/en" target="_blank">weather</a> as it may get chilly. This is a great time to pick up your {% if show_favors_link %} <a href="/favors/{{ rsvp.url_paths[0] }}">favor bag</a> {% else %} favor bag {% endif %} from inside the Inn.</p>
+              </div>
+            </div>
+          {% endif %}
+        {% endif %}
       {% endif %}
       <div class="row">
         <h2 class="text-center">Saturday, September 28</h2>
       </div>
-      <div class="row">
-        <div class="col-xs-3 text-center">
-          <h2>11:00 am</h2>
+      {% if ceremony_rehearsal %}
+        <div class="row">
+          <div class="col-xs-3 text-center">
+            <h2>~9:30 am</h2>
+          </div>
+          <div class="col-xs-9">
+            <h3>Ceremony Rehearsal</h3> 
+            <p>We would like to briefly run through the ceremony Saturday morning before the Blue Hill Walk. Please meet by the tent.</p>
+          </div>
         </div>
-        <div class="col-xs-9">
-          <h3>Morning Walk</h3> 
-          <p>There are plenty of beautiful hikes in the Brooklin area. We’re planning to check out the <a href="https://actoutwithaislinn.bangordailynews.com/2012/10/16/one-minute-hikes/1-minute-hike-blue-hill-mountain-blue-hill-maine/" target="_blank">Osgood Trail</a> up Blue Hill Mountain at 11:00 am.
-  </p>
+      {% endif %}
+      {% if rsvp.saturday_activity %}
+        <div class="row">
+          <div class="col-xs-3 text-center">
+            <h2>11:00 am</h2>
+          </div>
+          <div class="col-xs-9">
+            <h3>Morning Walk</h3> 
+            <p>There are plenty of beautiful hikes in the Brooklin area. We’re planning to check out the <a href="https://actoutwithaislinn.bangordailynews.com/2012/10/16/one-minute-hikes/1-minute-hike-blue-hill-mountain-blue-hill-maine/" target="_blank">Osgood Trail</a> up Blue Hill Mountain at 11:00 am. Please consider carpooling as parking may be limited.</p>
+          </div>
         </div>
-      </div>
+      {% endif %}
       <div class="row">
         <div class="col-xs-3 text-center">
           <h2>4:30 pm</h2>
         </div>
         <div class="col-xs-9">
-          <h3>Ceremony and Celebration</h3>
-          <p>We’re tying the knot at 4:30 pm! We’ll have a brief ceremony with our family and closest friends, followed by dinner, drinks, dancing, and lawn games. See you at The Lookout, and be sure to dress for the <a href="https://darksky.net/details/44.2764,-68.5475/2019-9-28/us12/en" target="_blank">weather</a>!
-  </p>
+          <h3>Ceremony</h3>
+          <p>We’re getting married! We'll have a brief ceremony, officiated by Mike "The Rev", Lenna's brother-in-law, outside of the tent near The Lookout's coastline. Be sure to dress for the <a href="https://darksky.net/details/44.2764,-68.5475/2019-9-28/us12/en" target="_blank">weather</a>!</p>
         </div>
-      </div>
-      <div class="row">
-        <h2 class="text-center">Sunday, September 29</h2>
       </div>
       <div class="row">
         <div class="col-xs-3 text-center">
-          <h2>8:00 am</h2>
+          <h2>5:00 pm</h2>
         </div>
         <div class="col-xs-9">
-          <h3>Breakfast</h3>
-          <p>We hope to catch you one last time before heading out of town over breakfast at The Lookout. Thank you for much being a part of our wedding! We could not be more grateful.</p>
+          <h3>Libations, Lawn Games, and Photos</h3>
+          <p>Enjoy some drinks and snacks while playing lawn games and soaking in the scenery. Feel free to do some beachcombing as the tide should be low enough for some serious exploration. Please don't get too far away, though, as we'd love to get some photos with everyone!</p>
         </div>
       </div>
+      <div class="row">
+        <div class="col-xs-3 text-center">
+          <h2>6:00 pm</h2>
+        </div>
+        <div class="col-xs-9">
+          <h3>Toasts and Dinner</h3>
+          <p>We'll do a few celebratory toasts before digging into a "Maine BBQ". Check out the evening's menu <a href="/menu">here</a>.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3 text-center">
+          <h2>7:00 pm</h2>
+        </div>
+        <div class="col-xs-9">
+          <h3>Dessert, Dancing, Bonfire</h3>
+          <p>Get down to some hand-picked tunes and feast upon one of two chocolatey cakes (or both!) and blueberry pie à la mode. Weather-permitting, we'll have a bonfire later in evening so consider bringing a change of clothes to avoid infusing your party attire with smoke.</p>
+        </div>
+      </div>
+      {% if rsvp.sunday_brunch %}
+        <div class="row">
+          <h2 class="text-center">Sunday, September 29</h2>
+        </div>
+        <div class="row">
+          <div class="col-xs-3 text-center">
+            {% if rsvp.which_brunch == 'first' %}
+              <h2>7:30 am</h2>
+            {% elif rsvp.which_brunch == 'second' %}
+              <h2>8:30 am</h2>
+            {% else %}
+              <h2>7:30 am or 8:30 am</h2>
+            {% endif %}
+          </div>
+          <div class="col-xs-9">
+            <h3>Breakfast</h3>
+            {% if rsvp.which_brunch %}
+              <p>Have some breakfast at The Lookout before heading out of town. Take advantage of your last chance to kayak and make sure to get your {% if show_favors_link %} <a href="/favors/{{ rsvp.url_paths[0] }}">favor bag</a> {% else %} favor bag {% endif %} before leaving. Thank you so much for being a part of our wedding! We could not be more grateful.</p>
+            {% else %}
+              <p>Due to limited space at The Lookout, we need to serve breakfast in two rounds, one at 7:30 am and another at 8:30 am. Please select one of the time slots <a href="">here</a>.</p>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
     </div>
+
     <div class="container text-center">
       <h1>What to Wear</h1>
       <p class="text-center">Get ready to dance, play lawn games, and explore the shoreline, all on the beautiful grounds of The Lookout Inn in Brooklin, Maine. Feel free to be fancy or more casual—we just want you to be comfortable and have fun.<p>
 
-      <p class="text-center">The weather will likely be in the 60s during the ceremony and cool down to the 50s as the evening goes on. There will be heaters in the tent outside, but it’s a good idea to bring a jacket or coat to stay warm! We’ll have dessert and coffee inside the restaurant where you can cozy up and look out over the water. You may also want to bring a change of clothes to sit by the bonfire on Saturday.</p>
+      <p class="text-center">The <a href="https://darksky.net/details/44.2764,-68.5475/2019-9-28/us12/en" target="_blank">weather</a> will likely be in the 60s during the ceremony and cool down to the 50s as the evening goes on. The reception will be in a tent with heaters, but it’s a good idea to bring a jacket or coat to stay warm! We’ll have dessert and coffee inside the restaurant where you can cozy up and look out over the water. You may also want to bring a change of clothes to sit by the bonfire on Saturday.</p>
     </div>
     <div class ="container text-left">
       <h1 class="text-center">Stuff to Do</h1>
@@ -372,9 +439,7 @@
   <script>
   $(document).ready(function() {
 
-    $('html, body').animate({
-      scrollTop: $('#schedule').offset().top
-    }, 750);
+    window.location.replace('#schedule');
 
     var emailTimeoutId;
     $('#email').on('input', function() {
