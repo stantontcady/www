@@ -1,6 +1,6 @@
 
 from datetime import datetime
-from operator import ge
+from operator import ge, le
 from pytz import timezone
 
 from bson.objectid import ObjectId
@@ -278,6 +278,9 @@ def rsvp(rsvp_url_path):
                 rsvp.url_paths
             ).intersection(
                 ('milano', 'slo&smello', 'chiefmoyofficer', 'steve&beth', 'steph&josh')
+            ),
+            allow_sunday_breakfast_schedule_change=le(
+                datetime.now(eastern_timezone), datetime(2019, 9, 27, 15, 0, 0, tzinfo=eastern_timezone)
             )
         )
 
@@ -366,3 +369,7 @@ def view_sunday_breakfast(rsvp_url_path):
         )
 
     return render_template('error.html', rsvp_url_path=rsvp_url_path)
+
+@app.route('/kayaks')
+def view_kayak_guidelines():
+    return render_template('kayak_guidelines.html')

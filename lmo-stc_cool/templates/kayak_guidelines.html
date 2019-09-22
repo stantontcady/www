@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>LMO+STC Kayak Guidelines</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato|Montserrat" rel="stylesheet" type="text/css">
+  <style>
+    body {
+      color: #000;
+    }
+    h1, h2 {
+      font-family: Montserrat, sans-serif;
+      letter-spacing: 0.5vmin;
+    }
+    h1 {
+      font-size: 6vmin !important;
+    }
+    p {
+      font: 400 3.5vmin/1.8 Lato, sans-serif;
+    }
+    li {
+      font: 400 3vmin/1.8 Lato, sans-serif;
+    }
+    img {
+      width: 50vmin;
+      margin: 8vmin auto 10vmin auto;
+    }
+    #main {
+      margin: 20px;
+    }
+    @media only screen and (min-width: 850px) {
+      #main {
+        max-width: 100vmin;
+        margin: 20px auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="main" class="text-center">
+    <img class="img-responsive center-block" src="{{ url_for('static', filename='img/kayaks_drawing.png') }}" />
+    <h1>Kayak Guidelines</h1>
+    <p>Come explore the delightful Downeast coastline and its little islands via The Lookout grounds. We have rented a few single kayaks and one tandem kayak. They’re there for your use all weekend long, until Sunday at noon! (We also welcome you to check out Kissing Tree Island, accessible by foot during low tide.) For your safety and enjoyment, read <a href="{{ url_for('static', filename='kayak_safety.pdf') }}">this</a> "safety first" sheet from <a href="http://theactivityshop.com" target="_blank">The Activity Shop</a> and these important notes:</p>
+    <ul class="text-left">
+      <li>Before kayaking, you will need to fill out a <a href="http://cobaltsilver.net/filemanager_v4/DB1130/1/700/items/2F300D3A-BB03-97FF-391FEEAA473D8535.pdf" target="_blank">waiver form</a>. You can do this beforehand and email it to Chris at <a href="mailto:info@theactivityshop.com">info@theactivityshop.com</a> or we will have paper copies at The Lookout.</li>
+      <li>Always wear a life vest.</li>
+      <li>Don’t drink and kayak.</li>
+      <li>Mount and dismount kayaks just before reaching the shore (riding up to the shore will scratch the boat bottoms).</li>
+      <li>Kayak when the weather is good! Do not kayak if the wind is higher than 15 mph. It is calmest early in the morning and choppiest/windiest in the middle of the day.</li>
+      <li>Kayak Chris says the water is *cold.* Don’t fall in.</li>
+      <li>Stay within 50 feet of the shore.</li>
+      <li>When you’re done, pull the kayaks back into the GRASS. Otherwise they will float out to sea if left in the sand.</li>
+    </ul>
+  </div>
+
+</body>
+</html>

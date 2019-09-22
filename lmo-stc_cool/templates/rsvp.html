@@ -20,6 +20,7 @@
   }
   #accept_rsvp h1 {
     font-size: 45px !important;
+    margin-top: 40px;
   }
   #accept_rsvp h2 {
     font-size: 30px !important;
@@ -376,7 +377,7 @@
         </div>
         <div class="col-xs-9">
           <h3>Dessert, Dancing, Bonfire</h3>
-          <p>Get down to some hand-picked tunes and feast upon one of two chocolatey cakes (or both!) and blueberry pie à la mode. Weather-permitting, we'll have a bonfire later in evening so consider bringing a change of clothes to avoid infusing your party attire with smoke.</p>
+          <p>Get down to some hand-picked tunes and feast upon one of two chocolatey cakes (or both!) and blueberry pie à la mode. Weather-permitting, we'll have a bonfire later in the evening so consider bringing a change of clothes to avoid infusing your party attire with smoke.</p>
         </div>
       </div>
       {% if rsvp.sunday_brunch %}
@@ -396,9 +397,11 @@
           <div class="col-xs-9">
             <h3>Breakfast</h3>
             {% if rsvp.which_brunch %}
-              <p>Have some breakfast at The Lookout before heading out of town. Take advantage of your last chance to kayak and make sure to get your {% if show_favors_link %} <a href="/favors/{{ rsvp.url_paths[0] }}">favor bag</a> {% else %} favor bag {% endif %} before leaving. Thank you so much for being a part of our wedding! We could not be more grateful.</p>
+              <p>Have some breakfast at The Lookout before heading out of town. Take advantage of your last chance to <a href="/kayaks">kayak</a> and make sure to get your {% if show_favors_link %} <a href="/favors/{{ rsvp.url_paths[0] }}">favor bag</a> {% else %} favor bag {% endif %} before leaving. Thank you so much for being a part of our wedding! We could not be more grateful.</p>
+              {% if allow_sunday_breakfast_schedule_change %}<p>If you need to change to the other time slot, you can do so <a href="/sunday_breakfast/{{ rsvp.url_paths[0] }}">here</a>.</p>
+              {% endif %}
             {% else %}
-              <p>Due to limited space at The Lookout, we need to serve breakfast in two rounds, one at 7:30 am and another at 8:30 am. Please select one of the time slots <a href="">here</a>.</p>
+              <p>Due to limited space at The Lookout, breakfast needs to be served in two rounds, one at 7:30 am and another at 8:30 am. <b>Please select one of the time slots <a href="/sunday_breakfast/{{ rsvp.url_paths[0] }}">here</a></b>.</p>
             {% endif %}
           </div>
         </div>
@@ -417,7 +420,7 @@
         <div class="col-sm-5">
           <h2 class="text-center">Fun</h2>
           <ul>
-            <li><p>We’ll have kayaks rented at The Lookout during the weekend that you can use to paddle along the shoreline. Feel free to stop by and explore whenever you like.</p></li>
+            <li><p>We’ll have <a href="/kayaks">kayaks</a> rented at The Lookout during the weekend that you can use to paddle along the shoreline. Feel free to stop by and explore whenever you like.</p></li>
             <li><p>Other places to explore include Cooper Farm at <a href="http://bluehillheritagetrust.org/cooper-farm-at-caterpillar-hill/" target="_blank">Caterpillar Hill</a> and <a href="https://bluehillheritagetrust.org/peters-brook-trail-and-peters-cove/" target="_blank">Peter’s Brook</a>.</p></li>
           </ul>
         </div>
