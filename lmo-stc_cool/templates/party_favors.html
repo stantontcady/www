@@ -66,6 +66,10 @@
     <div class="container">
       <h1>Party Favors</h1>
       <p>Below are some details and "behind-the-scenes" of our party favors</p>
+      <img class="img-responsive center-block" src="{{ url_for('static', filename='img/towel_folding.gif') }}" />
+      <div class="caption text-center">
+        <p>Lenna folding it toight</p>
+      </div>
     </div>
     <div class="container" style="margin-top: 30px;">
       <h2>Tea Towel</h2>
@@ -87,7 +91,7 @@
     </div>
     <div class="container" style="margin-top: 30px;">
       <h2>Lighthouse Name Tag</h2>
-      <p>Inspired by lighthouses throughout New England and beyond; drawn by Lenna on the iPad; painted by Lenna</p>
+      <p>Inspired by lighthouses throughout New England and beyond; drawn by Lenna on the iPad; painted by Lenna; shapes cut by <a href="https://www.etsy.com/shop/GrowingTreeGallery?ref=simple-shop-header-name&listing_id=696550588" target="_blank">Growing Tree Gallery Etsy Shop</a></p>
       <div class="row">
         <div class="col-sm-6">
           <img id="lighthouse_drawing" class="img-responsive center-block" src="{{ url_for('static', filename='img/lighthouse_drawing.png') }}" />
@@ -151,7 +155,7 @@
     </div>
     <div class="container" style="margin-top: 30px;">
       <h2>Coffee Beans</h2>
-      <p>Recently roasted beans from <a target="_blank" href="https://www.broadsheetcoffee.com">Broadsheet Coffee Roasters</a> in Cambridge, MA—a local favorite of Stanton and Lenna; The Lookout Inn drawn by Lenna on the iPad made into a custom stamp (this is the same image used for the invitation)</p>
+      <p>Recently (09/23) roasted beans from <a target="_blank" href="https://www.broadsheetcoffee.com">Broadsheet Coffee Roasters</a> in Cambridge, MA—a local favorite of Stanton and Lenna; The Lookout Inn drawn by Lenna on the iPad made into a custom stamp (this is the same image used for the invitation)</p>
       <div class="row">
         <div class="col-sm-6">
           <img id="lookout_drawing" class="img-responsive center-block" src="{{ url_for('static', filename='img/lookout_drawing.png') }}" />
@@ -174,9 +178,9 @@
           </div>
         </div>
         <div class="col-sm-6">
-          <img class="img-responsive center-block" src="{{ url_for('static', filename='img/coffee_bags_drying.png') }}" />
+          <img class="img-responsive center-block" src="{{ url_for('static', filename='img/filling_coffee_bags.png') }}" />
           <div class="caption text-center">
-            <p>Stanton filling bags with beans</p>
+            <p>Stanton filling each bag with no more than 55g of beans</p>
           </div>
         </div>
       </div>
@@ -213,30 +217,32 @@
         </div>
       </div>
     </div>
-    <div class="container" style="margin-top: 30px;">
-      <h2>Acadia Stickers</h2>
-      <p>Inspired by / made use of font available at <a target="_blank" href="https://nationalparktypeface.com">National Park Type Face</a>; the Bass Harbor Head Light drawn by Lenna on the iPad; final design made in Photoshop; printed by <a href="https://www.stickermule.com" target="_blank">Sticker Mule</a></p>
-      <div class="row">
-        <div class="col-sm-3">
-          <img class="img-responsive center-block" src="{{ url_for('static', filename='img/bass_harbor_light_drawing.png') }}" />
-          <div class="caption text-center">
-            <p>Drawing of the Bass Harbor Head Light</p>
+    {% if rsvp.friday_hike %}
+      <div class="container" style="margin-top: 30px;">
+        <h2>Acadia Stickers</h2>
+        <p>Inspired by / made use of font available at <a target="_blank" href="https://nationalparktypeface.com">National Park Type Face</a>; the Bass Harbor Head Light drawn by Lenna on the iPad; final design made in Photoshop; printed by <a href="https://www.stickermule.com" target="_blank">Sticker Mule</a></p>
+        <div class="row">
+          <div class="col-sm-3">
+            <img class="img-responsive center-block" src="{{ url_for('static', filename='img/bass_harbor_light_drawing.png') }}" />
+            <div class="caption text-center">
+              <p>Drawing of the Bass Harbor Head Light</p>
+            </div>
           </div>
-        </div>
-        <div class="col-sm-3">
-          <img class="img-responsive center-block" src="{{ url_for('static', filename='img/acadia_sticker_proof.png') }}" />
-          <div class="caption text-center">
-            <p>Final sticker design</p>
+          <div class="col-sm-3">
+            <img class="img-responsive center-block" src="{{ url_for('static', filename='img/acadia_sticker_proof.png') }}" />
+            <div class="caption text-center">
+              <p>Final sticker design</p>
+            </div>
           </div>
-        </div>
-        <div class="col-sm-6">
-          <img id="acadia_sticker_on_bottle" class="img-responsive center-block" src="{{ url_for('static', filename='img/acadia_sticker_on_bottle.png') }}" />
-          <div class="caption text-center">
-            <p>Acadia sticker on Stanton's Klean Kanteen; Chessie in awe in the background</p>
+          <div class="col-sm-6">
+            <img id="acadia_sticker_on_bottle" class="img-responsive center-block" src="{{ url_for('static', filename='img/acadia_sticker_on_bottle.png') }}" />
+            <div class="caption text-center">
+              <p>Acadia sticker on Stanton's Klean Kanteen; Chessie in awe in the background</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    {% endif %}
     <div class="container" style="margin-top: 30px;">
       <h2>Pot Holders</h2>
       <p>"Tight Nups" phrase inspired by <a target="_blank" href="https://twitter.com/nbcbrooklyn99/status/930812645988372485?lang=en">Brooklyn Nine-Nine</a>; pot holders made by Lenna to reflect her love for baking and sewing</p>
