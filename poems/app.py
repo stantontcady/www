@@ -85,3 +85,8 @@ def generate_and_show_poem(poem_type):
 @app.route('/previous')
 def show_previous_poem():
     return render_template('view_poems.html', poems=Poem.objects.raw({}))
+
+
+@app.route('/')
+def view_all_lines():
+    return render_template('view_all_lines.html', lines=PoemLine.objects.raw({}), num_lines=PoemLine.objects.count())
