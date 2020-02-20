@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Boston Public Garden</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      .grid-container {
+        width: 100%;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+      }
+      .thumbnail img {
+        width: 100%;
+      }
+      .grid-item h1 {
+      }
+      .column-header {
+        text-align: center;
+      }
+      .row-header {
+        text-align: right;
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="grid-container">
+
+     {% for row_number, week_of_photos in weeks_of_photos %}
+
+        <div class="grid-item">
+          {% if week_of_photos.monday_photo is not none %}
+            <div class="thumbnail">
+              <img class="img-responsive" src="{{ url_for('static', filename='img/' + week_of_photos.monday_photo.filename) }}" />
+            </div>
+          {% endif %}
+        </div>
+        <div class="grid-item">
+          {% if week_of_photos.tuesday_photo is not none %}
+            <div class="thumbnail">
+              <img class="img-responsive" src="{{ url_for('static', filename='img/' + week_of_photos.tuesday_photo.filename) }}" />
+            </div>
+          {% endif %}
+        </div>
+        <div class="grid-item">
+          {% if week_of_photos.wednesday_photo is not none %}
+            <div class="thumbnail">
+              <img class="img-responsive" src="{{ url_for('static', filename='img/' + week_of_photos.wednesday_photo.filename) }}" />
+            </div>
+          {% endif %}
+        </div>
+        <div class="grid-item">
+          {% if week_of_photos.thursday_photo is not none %}
+            <div class="thumbnail">
+              <img class="img-responsive" src="{{ url_for('static', filename='img/' + week_of_photos.thursday_photo.filename) }}" />
+            </div>
+          {% endif %}
+        </div>
+        <div class="grid-item">
+          {% if week_of_photos.friday_photo is not none %}
+            <div class="thumbnail">
+              <img class="img-responsive" src="{{ url_for('static', filename='img/' + week_of_photos.friday_photo.filename) }}" />
+            </div>
+          {% endif %}
+        </div>
+
+      {% endfor %}
+
+    </div>
+
+  </body>
+</html>

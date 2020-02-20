@@ -211,9 +211,14 @@ weeks_of_photos = (
 )
 
 
-@app.route('/daily_photo/grid')
-def daily_photo_grid():
-    return render_template('daily_photo_grid.html', weeks_of_photos=enumerate(weeks_of_photos))
+@app.route('/daily_photo/grid/<int:include_padding>')
+def daily_photo_grid(include_padding):
+
+    if include_padding:
+        return render_template('daily_photo_grid.html', weeks_of_photos=enumerate(weeks_of_photos))
+
+    else:
+        return render_template('daily_photo_grid_no_padding.html', weeks_of_photos=enumerate(weeks_of_photos))
 
 
 @app.route('/daily_photo')
