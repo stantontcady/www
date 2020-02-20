@@ -211,6 +211,11 @@ weeks_of_photos = (
 )
 
 
-@app.route('/daily_photo_grid')
+@app.route('/daily_photo/grid')
 def daily_photo_grid():
     return render_template('daily_photo_grid.html', weeks_of_photos=enumerate(weeks_of_photos))
+
+
+@app.route('/daily_photo')
+def daily_photo():
+    return render_template('daily_photo.html')

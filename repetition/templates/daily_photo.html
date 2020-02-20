@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Boston Public Garden</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="grid-container">
+      <a href="{{ url_for('static', filename='img/aligned_uncropped_large.gif') }}"><img class="img-responsive" src="{{ url_for('static', filename='img/aligned_uncropped_small.gif') }}" /></a>
+      <a href="/daily_photo/grid">View as Grid</a>
+    </div>
+
+  </body>
+</html>
